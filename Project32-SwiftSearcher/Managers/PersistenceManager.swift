@@ -35,6 +35,7 @@ enum PersistenceManager
     {
         switch actionType {
         case .add:
+            projects.removeAll { $0.title == project.title }
             projects.append(project)
         case .remove:
             projects.removeAll { $0.title == project.title }
@@ -42,7 +43,7 @@ enum PersistenceManager
     }
     
     //-------------------------------------//
-    // MARK: - SAVE / LOAD PROJECTS ARRAY
+    // MARK: - SAVE / FETCH PROJECTS ARRAY
     
     static func saveProjects(_ projects: [Project]) -> SSError?
     {
@@ -52,12 +53,11 @@ enum PersistenceManager
             defaults.setValue(encodedProjects, forKey: SaveKeys.projects)
             return nil
         } catch {
-            return SSError.failedToSaveProjects
+            return .failedToSaveProjects
         }
     }
     
     
-    // im an escaping closure that takes parameter: Result and return nothing
     static func fetchProjects(completed: @escaping (Result<[Project], SSError>) -> Void)
     {
         guard let encodedProjects = defaults.object(forKey: SaveKeys.projects) as? Data

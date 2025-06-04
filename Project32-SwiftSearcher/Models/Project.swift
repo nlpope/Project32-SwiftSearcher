@@ -9,4 +9,5 @@ struct Project: Codable
     let title: String
     let subTitle: String
     let index: Int
+    var completed: Bool = false
 }
