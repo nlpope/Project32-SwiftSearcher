@@ -4,9 +4,15 @@
 
 import UIKit
 
-class HomeVC: UITableViewController
+class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating
 {
-    var projects = [Project]()
+    enum Section { case main }
+    
+    var dataSource: UITableViewDiffableDataSource<Section, SSProject>!
+    var projects = [SSProject]()
+    var filteredProjects = [SSProject]()
+    var addButton: UIBarButtonItem!
+    var logoLauncher: 
     
     
     override func viewDidLoad()
@@ -14,6 +20,9 @@ class HomeVC: UITableViewController
         super.viewDidLoad()
         createProjects()
     }
+    
+    
+    deinit { logoLauncher.removeAllAVPlayerLayers() }
     
     //-------------------------------------//
     // MARK: - PROJECT CREATION & APPENDING
@@ -40,7 +49,17 @@ class HomeVC: UITableViewController
     
     func createProject(title: String, subTitle: String, index: Int)
     {
-        let proj = Project(title: "Project \(index): \(title)", subTitle: subTitle, index: index)
+        let proj = SSProject(title: "Project \(index): \(title)", subTitle: subTitle, index: index)
         projects.append(proj)
     }
+    
+    //-------------------------------------//
+    // MARK: - TABLEVIEW DATASOURCE & DELEGATE METHODS
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return projects.count
+    }
+    
+    
 }

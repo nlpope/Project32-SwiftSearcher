@@ -12,12 +12,15 @@ enum ProjectPersistenceActionType
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
+    static var isFirstVisitStatus: Bool! = true {
+        didSet { PersistenceManager.saveFirstVisitStatus(status: self.isFirstVisitStatus) }
+    }
     
     //-------------------------------------//
     // MARK: - ADD / REMOVE FROM PROJECTS ARRAY
     
     // see app delegate
-    static func updateProjectsWith(project: Project, actionType: ProjectPersistenceActionType, completionHandler: @escaping (SSError?) -> Void)
+    static func updateProjectsWith(project: SSProject, actionType: ProjectPersistenceActionType, completionHandler: @escaping (SSError?) -> Void)
     {
         fetchProjects { result in
             switch result {
@@ -31,7 +34,7 @@ enum PersistenceManager
     }
     
     
-    static func handle(actionType: ProjectPersistenceActionType, for project: Project, inArray projects: inout [Project])
+    static func handle(actionType: ProjectPersistenceActionType, for project: SSProject, inArray projects: inout [SSProject])
     {
         switch actionType {
         case .add:
@@ -45,7 +48,7 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH PROJECTS ARRAY
     
-    static func saveProjects(_ projects: [Project]) -> SSError?
+    static func saveProjects(_ projects: [SSProject]) -> SSError?
     {
         do {
             let encoder = JSONEncoder()
@@ -58,17 +61,48 @@ enum PersistenceManager
     }
     
     
-    static func fetchProjects(completed: @escaping (Result<[Project], SSError>) -> Void)
+    static func fetchProjects(completed: @escaping (Result<[SSProject], SSError>) -> Void)
     {
         guard let encodedProjects = defaults.object(forKey: SaveKeys.projects) as? Data
         else { completed(.success([])); return }
         
         do {
             let decoder = JSONDecoder()
-            let fetchedProjects = try decoder.decode([Project].self, from: encodedProjects)
+            let fetchedProjects = try decoder.decode([SSProject].self, from: encodedProjects)
             completed(.success(fetchedProjects))
         } catch {
             
+        }
+    }
+    
+    //-------------------------------------//
+    // MARK: - SAVE / FETCH FIRST VISIT STATUS (FOR LOGO LAUNCHER)
+    
+    static func saveFirstVisitStatus(status: Bool) -> SSError?
+    {
+        do {
+            let encoder = JSONEncoder()
+            let encodedStatus = try encoder.encode(status)
+            defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisitStatus)
+            return nil
+        } catch {
+            return .failedToLoadFirstVisitStatus
+        }
+    }
+    
+    
+    static func fetchFirstVisitStatus() -> Bool
+    {
+        guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisitStatus) as? Data
+        else { return true }
+        
+        do {
+            let decoder = JSONDecoder()
+            let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
+            return fetchedStatus
+        } catch {
+            print("unable to load first visit status")
+            return true
         }
     }
 }

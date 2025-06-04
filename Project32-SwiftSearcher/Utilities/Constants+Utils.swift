@@ -7,4 +7,5 @@ import Foundation
 enum SaveKeys
 {
     static let projects = "projects"
+    static let isFirstVisitStatus = "isFirstVisitStatus"
 }
