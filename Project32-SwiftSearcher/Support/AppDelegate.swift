@@ -76,3 +76,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+//-------------------------------------//
+// MARK: - NOTES SECTION
+
+/**
+ swift @ version: 6 (released 09.17.2024)
+ iOS @ version: 18.5 (released 05.14.2025)
+ xcode @ version: 16.3 (released 03.31.2025)
+ --------------------------
+ XXXXXXXXXXXXXXXXXXXXXXXX
+ --------------------------
+ PROBLEM TRACKING:
+ * = problem
+ >  = solution
+ 
+ * Persistence Mgr. > updateProjectsWith() - having trouble understanding closure syntax in persistence mgr funcs
+ > I get it - the SSError? in the below sig is referring to the parameter you'll play with in the '{' after calling 'updateProjectsWith...' - so yes, it's what you'll play with (the parameter[s]) once it's done - where i was getting stumped is in thinking that (SSError?) -> Void referred to what saveProjects() had to be, but think of it instead as saveProjects() spitting out the parameter you'll be playing with (SSError?) when 'updatProjectsWith...' is done - see below:
+ 
+ COMPLETIONHANDLER IN SIGNATURE = "I EXPECT 'SAVE()' TO SPIT OUT AN SSERROR OR NIL & GIVE IT BACK TO ME FOR USE IN MY COMPLETION CLOSURE"
+ completionHandler(saveProjects(projects))
+ note how you only want to do something with the error it spits out if saving is unsuccessful
+ 
+ --------------------------
+ TECHNOLOGIES USED / LEARNED:
+ * Swift
+ * Swift Keychain Wrapper
+ --------------------------
+ REFERENCES & CREDITS:
+ * KeychainOptions.swift & SwiftKeychainWrapper by MIT's James Blair on 4/24/16.
+ --------------------------
+ XXXXXXXXXXXXXXXXXXXXXXXX
+ --------------------------
+ */

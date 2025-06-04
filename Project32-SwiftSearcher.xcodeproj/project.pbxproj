@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		407B54312DEFC79A00109BAE /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54302DEFC79A00109BAE /* Project.swift */; };
+		407B54342DEFCBFB00109BAE /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54332DEFCBFB00109BAE /* PersistenceManager.swift */; };
+		407B543D2DEFE1A400109BAE /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */; };
+		407B54402DEFE55600109BAE /* Constants+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B543F2DEFE55600109BAE /* Constants+Utils.swift */; };
+		407B54422DEFE85300109BAE /* SSError+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54412DEFE85300109BAE /* SSError+Utils.swift */; };
+		407B544B2DF001B200109BAE /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B544A2DF001B200109BAE /* KeychainWrapper.swift */; };
+		407B544C2DF001B200109BAE /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54492DF001B200109BAE /* KeychainItemAccessibility.swift */; };
 		409583132DEFC3C70057A642 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 409583082DEFC3C70057A642 /* Assets.xcassets */; };
 		409583152DEFC3C70057A642 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4095830B2DEFC3C70057A642 /* LaunchScreen.storyboard */; };
 		409583162DEFC3C70057A642 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4095830D2DEFC3C70057A642 /* Main.storyboard */; };
@@ -36,6 +42,12 @@
 
 /* Begin PBXFileReference section */
 		407B54302DEFC79A00109BAE /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		407B54332DEFCBFB00109BAE /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
+		407B543F2DEFE55600109BAE /* Constants+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Constants+Utils.swift"; sourceTree = "<group>"; };
+		407B54412DEFE85300109BAE /* SSError+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SSError+Utils.swift"; sourceTree = "<group>"; };
+		407B54492DF001B200109BAE /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		407B544A2DF001B200109BAE /* KeychainWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		409582D02DEFC2E20057A642 /* Project32-SwiftSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project32-SwiftSearcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409582E92DEFC2EC0057A642 /* Project32-SwiftSearcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Project32-SwiftSearcherTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409582F32DEFC2EC0057A642 /* Project32-SwiftSearcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Project32-SwiftSearcherUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +107,31 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		407B54322DEFCBEE00109BAE /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				407B54332DEFCBFB00109BAE /* PersistenceManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		407B543B2DEFE19300109BAE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		407B543E2DEFE54500109BAE /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				407B543F2DEFE55600109BAE /* Constants+Utils.swift */,
+				407B54412DEFE85300109BAE /* SSError+Utils.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		409582C72DEFC2E20057A642 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +155,9 @@
 		409583112DEFC3C70057A642 /* Project32-SwiftSearcher */ = {
 			isa = PBXGroup;
 			children = (
+				407B543E2DEFE54500109BAE /* Utilities */,
+				407B543B2DEFE19300109BAE /* Extensions */,
+				407B54322DEFCBEE00109BAE /* Managers */,
 				407B542F2DEFC77900109BAE /* Models */,
 				4095831B2DEFC3D30057A642 /* Screens */,
 				4095831C2DEFC3FB0057A642 /* Support */,
@@ -139,6 +179,8 @@
 			children = (
 				409583072DEFC3C70057A642 /* AppDelegate.swift */,
 				4095830F2DEFC3C70057A642 /* SceneDelegate.swift */,
+				407B54492DF001B200109BAE /* KeychainItemAccessibility.swift */,
+				407B544A2DF001B200109BAE /* KeychainWrapper.swift */,
 				4095830B2DEFC3C70057A642 /* LaunchScreen.storyboard */,
 				4095830D2DEFC3C70057A642 /* Main.storyboard */,
 				409583082DEFC3C70057A642 /* Assets.xcassets */,
@@ -292,8 +334,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				409583172DEFC3C70057A642 /* AppDelegate.swift in Sources */,
+				407B54422DEFE85300109BAE /* SSError+Utils.swift in Sources */,
+				407B54402DEFE55600109BAE /* Constants+Utils.swift in Sources */,
 				409583182DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld in Sources */,
+				407B544B2DF001B200109BAE /* KeychainWrapper.swift in Sources */,
+				407B544C2DF001B200109BAE /* KeychainItemAccessibility.swift in Sources */,
+				407B543D2DEFE1A400109BAE /* UIViewController+Ext.swift in Sources */,
 				409583192DEFC3C70057A642 /* SceneDelegate.swift in Sources */,
+				407B54342DEFCBFB00109BAE /* PersistenceManager.swift in Sources */,
 				407B54312DEFC79A00109BAE /* Project.swift in Sources */,
 				4095831A2DEFC3C70057A642 /* HomeVC.swift in Sources */,
 			);

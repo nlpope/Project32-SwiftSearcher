@@ -18,11 +18,11 @@ class HomeVC: UITableViewController
     
     func createProjects()
     {
-        createProject(index: 1, title: "Storm Viewer", subTitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards")
+        createProject(title: "Storm Viewer", subTitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards")
 
-        createProject(index: 2, title: "Guess the Flag", subTitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController")
+        createProject(title: "Guess the Flag", subTitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController")
         
-        createProject(index: 3, title: "Social Media", subTitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL")
+        createProject(title: "Social Media", subTitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL")
         
         createProject(index: 4, title: "Easy Browser", subTitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing")
         
@@ -36,9 +36,10 @@ class HomeVC: UITableViewController
     }
     
     
-    func createProject(index: Int, title: String, subTitle: String)
+    func createProject(title: String, subTitle: String)
     {
-        let proj = Project(title: "Project \(index): \(title)", subTitle: subTitle)
+        let proj = Project(title: "Project \(projectIndex): \(title)", subTitle: subTitle)
+        projectIndex += 1
         projects.append(proj)
     }
 }
