@@ -6,6 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		409583132DEFC3C70057A642 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 409583082DEFC3C70057A642 /* Assets.xcassets */; };
+		409583152DEFC3C70057A642 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4095830B2DEFC3C70057A642 /* LaunchScreen.storyboard */; };
+		409583162DEFC3C70057A642 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4095830D2DEFC3C70057A642 /* Main.storyboard */; };
+		409583172DEFC3C70057A642 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409583072DEFC3C70057A642 /* AppDelegate.swift */; };
+		409583182DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4095830E2DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld */; };
+		409583192DEFC3C70057A642 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4095830F2DEFC3C70057A642 /* SceneDelegate.swift */; };
+		4095831A2DEFC3C70057A642 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409583102DEFC3C70057A642 /* HomeVC.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		409582EA2DEFC2EC0057A642 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,27 +37,17 @@
 		409582D02DEFC2E20057A642 /* Project32-SwiftSearcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project32-SwiftSearcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409582E92DEFC2EC0057A642 /* Project32-SwiftSearcherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Project32-SwiftSearcherTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409582F32DEFC2EC0057A642 /* Project32-SwiftSearcherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Project32-SwiftSearcherUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		409583072DEFC3C70057A642 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		409583082DEFC3C70057A642 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		409583092DEFC3C70057A642 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4095830A2DEFC3C70057A642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4095830C2DEFC3C70057A642 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4095830F2DEFC3C70057A642 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		409583102DEFC3C70057A642 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		409583122DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project32_SwiftSearcher.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		409582FB2DEFC2EC0057A642 /* Exceptions for "Project32-SwiftSearcher" folder in "Project32-SwiftSearcher" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 409582CF2DEFC2E20057A642 /* Project32-SwiftSearcher */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		409582D22DEFC2E20057A642 /* Project32-SwiftSearcher */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				409582FB2DEFC2EC0057A642 /* Exceptions for "Project32-SwiftSearcher" folder in "Project32-SwiftSearcher" target */,
-			);
-			path = "Project32-SwiftSearcher";
-			sourceTree = "<group>";
-		};
 		409582EC2DEFC2EC0057A642 /* Project32-SwiftSearcherTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Project32-SwiftSearcherTests";
@@ -88,7 +88,7 @@
 		409582C72DEFC2E20057A642 = {
 			isa = PBXGroup;
 			children = (
-				409582D22DEFC2E20057A642 /* Project32-SwiftSearcher */,
+				409583112DEFC3C70057A642 /* Project32-SwiftSearcher */,
 				409582EC2DEFC2EC0057A642 /* Project32-SwiftSearcherTests */,
 				409582F62DEFC2EC0057A642 /* Project32-SwiftSearcherUITests */,
 				409582D12DEFC2E20057A642 /* Products */,
@@ -105,6 +105,37 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		409583112DEFC3C70057A642 /* Project32-SwiftSearcher */ = {
+			isa = PBXGroup;
+			children = (
+				4095831B2DEFC3D30057A642 /* Screens */,
+				4095831C2DEFC3FB0057A642 /* Support */,
+				409583092DEFC3C70057A642 /* Info.plist */,
+			);
+			path = "Project32-SwiftSearcher";
+			sourceTree = "<group>";
+		};
+		4095831B2DEFC3D30057A642 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				409583102DEFC3C70057A642 /* HomeVC.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		4095831C2DEFC3FB0057A642 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				409583072DEFC3C70057A642 /* AppDelegate.swift */,
+				4095830F2DEFC3C70057A642 /* SceneDelegate.swift */,
+				4095830B2DEFC3C70057A642 /* LaunchScreen.storyboard */,
+				4095830D2DEFC3C70057A642 /* Main.storyboard */,
+				409583082DEFC3C70057A642 /* Assets.xcassets */,
+				4095830E2DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -119,9 +150,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				409582D22DEFC2E20057A642 /* Project32-SwiftSearcher */,
 			);
 			name = "Project32-SwiftSearcher";
 			packageProductDependencies = (
@@ -225,6 +253,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				409583132DEFC3C70057A642 /* Assets.xcassets in Resources */,
+				409583152DEFC3C70057A642 /* LaunchScreen.storyboard in Resources */,
+				409583162DEFC3C70057A642 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +280,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				409583172DEFC3C70057A642 /* AppDelegate.swift in Sources */,
+				409583182DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld in Sources */,
+				409583192DEFC3C70057A642 /* SceneDelegate.swift in Sources */,
+				4095831A2DEFC3C70057A642 /* HomeVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +315,25 @@
 			targetProxy = 409582F42DEFC2EC0057A642 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4095830B2DEFC3C70057A642 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4095830A2DEFC3C70057A642 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4095830D2DEFC3C70057A642 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4095830C2DEFC3C70057A642 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		409582FD2DEFC2EC0057A642 /* Debug */ = {
@@ -571,6 +625,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4095830E2DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				409583122DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodel */,
+			);
+			currentVersion = 409583122DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodel */;
+			path = Project32_SwiftSearcher.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 409582C82DEFC2E20057A642 /* Project object */;
 }
