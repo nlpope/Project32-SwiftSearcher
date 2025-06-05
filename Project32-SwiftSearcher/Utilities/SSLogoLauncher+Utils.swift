@@ -2,11 +2,102 @@
 //  Project: Project32-SwiftSearcher
 //  Created by: Noah Pope on 6/3/25.
 
-#warning("add new logo launcher snippet this will be the default")
+//  * ADD THE MP4 FLICKER LOGO FILE
 //  * ADD THE AVPLAYER+EXT FILE
-//  * ADD THE DEINIT METHOD
-//  * SEE IOS NOTES CLONE FOR 'ISFIRSTVISIT' REFERENCES IN SCENEDELEGATE
 //  * BE SURE 'FORRESOURCE' NAME INS CONTANTS MATCHES LAUNCHSCREEN.MP4 FILE
+//  * (OPT) SEE IOS NOTES CLONE & MultiBrowser FOR REFERENCES
+
+/**
+ SCENE DELEGATE
+ func sceneWillResignActive(_ scene: UIScene) { PersistenceManager.isFirstVisitStatus = true }
+ ----------------------------------
+ AVPLAYER+EXT
+ import AVKit
+ import AVFoundation
+
+ extension AVPlayer
+ {
+     var isPlaying: Bool { return rate != 0 && error == nil }
+ }
+ ----------------------------------
+ CONSTANTS
+ enum SaveKeys
+ {
+     static let isFirstVisit = "isFirstVisitStatus"
+ }
+
+ enum VideoKeys
+ {
+ static let launchScreen = "launchscreen"
+ static let playerLayerName = "PlayerLayerName"
+ }
+ ----------------------------------
+ PERSISTENCE MANAGER
+ enum PersistenceManager
+ {
+    static private let defaults = UserDefaults.standard
+    static var isFirstVisitStatus: Bool! = fetchFirstVisitStatus() {
+        didSet { PersistenceManager.saveFirstVisitStatus(status: self.isFirstVisitStatus) }
+    }
+ 
+ //-------------------------------------//
+ // MARK: - SAVE / FETCH FIRST VISIT STATUS (FOR LOGO LAUNCHER)
+ 
+     static func saveFirstVisitStatus(status: Bool)
+     {
+         do {
+             let encoder = JSONEncoder()
+             let encodedStatus = try encoder.encode(status)
+             defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisit)
+         } catch {
+             print("failed ato save visit status"); return
+         }
+     }
+     
+     
+     static func fetchFirstVisitStatus() -> Bool
+     {
+         guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisit) as? Data
+         else { return true }
+         
+         do {
+             let decoder = JSONDecoder()
+             let fetchedStatus = try decoder.decode(Bool.self, from: visitStatusData)
+             return fetchedStatus
+         } catch {
+             print("unable to load first visit status")
+             return true
+         }
+     }
+ }
+ ----------------------------------
+ HOMEVC
+ override func viewDidLoad()
+ {
+     super.viewDidLoad()
+     PersistenceManager.isFirstVisitStatus = true
+     // all config calls go here
+ }
+ 
+ 
+ override func viewWillAppear(_ animated: Bool)
+ {
+     logoLauncher = SSLogoLauncher(targetVC: self)
+     if PersistenceManager.fetchFirstVisitStatus() {
+         logoLauncher.configLogoLauncher()
+     } else {
+         fetchProjects()
+     }
+ }
+ 
+ 
+ override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
+ 
+ 
+ deinit { logoLauncher.removeAllAVPlayerLayers() }
+ ----------------------------------
+ 
+ */
 
 import UIKit
 import AVKit
@@ -72,6 +163,7 @@ class SSLogoLauncher
     {
         targetVC.navigationController?.isNavigationBarHidden = false
         targetVC.view.backgroundColor = .systemBackground
+        // MAYBE LOOK INTO TINKERING W THE Z-AXIS VALUE FOR THINGS LIKE BROWSERS & SEARCHBARS CALLED EARLIER IN THE VDL
         
         PersistenceManager.isFirstVisitStatus = false
         removeAllAVPlayerLayers()
@@ -106,4 +198,3 @@ class SSLogoLauncher
         }
     }
 }
-

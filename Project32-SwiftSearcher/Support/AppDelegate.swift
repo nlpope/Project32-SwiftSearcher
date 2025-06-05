@@ -97,15 +97,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  completionHandler(saveProjects(projects))
  note how you only want to do something with the error it spits out if saving is unsuccessful
  
+ --------------------------
+
  * 1st prob - kept looping between sending empty array as completion to not reading array at all (nil)
- > 
+ > Kept saying CodingKey could not be found - this happened after I changed SSProject model's 'subTitle' prop to 'subtitle' so it read nil there on the fetch
+ > I just used the defaults.removeObjectForKey... method to delete what was in the OG key & took it out
+ > then I changed the keyname in my constants slightly to 'start fresh'
+ > still ran into problems but I'm thinking it was in regards to the below as the error msgs changed
  * 2nd prob - kept getting nil when attempting to update diffable datasource
  > it's cause you had not yet called its config method in either the VDL or the VWAppear (either of which will work but now I prefer the VDL to keep it out of the logolauncher
  
  --------------------------
+ XXXXXXXXXXXXXXXXXXXXXXXX
+ --------------------------
  TECHNOLOGIES USED / LEARNED:
  * Swift
  * Swift Keychain Wrapper
+ --------------------------
+ XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  REFERENCES & CREDITS:
  * KeychainOptions.swift & SwiftKeychainWrapper by MIT's James Blair on 4/24/16.

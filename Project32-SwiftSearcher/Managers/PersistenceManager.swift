@@ -64,18 +64,14 @@ enum PersistenceManager
     
     static func fetchProjects(completed: @escaping (Result<[SSProject], SSError>) -> Void)
     {
-//        defaults.removeObject(forKey: SaveKeys.projects)
-        #warning("prob child - keeps sending fetched projects that are nil")
         guard let encodedProjects = defaults.object(forKey: SaveKeys.projects) as? Data
-        else { print("sending empty result from pm"); completed(.success([])); return }
+        else { completed(.success([])); return }
         
         do {
             let decoder = JSONDecoder()
             let fetchedProjects = try decoder.decode([SSProject].self, from: encodedProjects)
-            print("sending fetched projects from pm = \(fetchedProjects)")
             completed(.success(fetchedProjects))
         } catch {
-            print("error = \(error)")
             completed(.failure(.failedToLoadProjects))
         }
     }

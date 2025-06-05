@@ -21,11 +21,10 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = false
+        PersistenceManager.isFirstVisitStatus = true
         configNavigation()
         configSearchController()
         configDiffableDataSource()
-        #warning("I moved my configdiffabledS into VDL and now it's working - why?")
     }
     
     
@@ -175,16 +174,12 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
 
     func fetchProjects()
     {
-        print("inside homevc>fetchprojects")
         PersistenceManager.fetchProjects { [weak self] result in
             switch result {
             case .success(let projects):
-                print("success case")
-                if projects.count == 0 { print("projects bein created"); self?.createProjects() }
-//                #warning("prob child")
-                else { print("projectsLoaded"); self?.projects = projects; self?.updateDataSource(with: projects) }
+                if projects.count == 0 { self?.createProjects() }
+                else { self?.projects = projects; self?.updateDataSource(with: projects) }
             case .failure(let error):
-                print("fail case")
                 self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
             }
         }
