@@ -47,6 +47,10 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     func configNavigation()
     {
         view.backgroundColor = .systemBackground
+        title = "Projects"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationController?.navigationItem.rightBarButtonItem = addButton
     }
     
     
@@ -105,6 +109,12 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
             self?.presentSSAlertOnMainThread(alertTitle: "Failed to save project", message: error.rawValue, buttonTitle: "Ok")
         }
         updateDataSource(with: projects)
+    }
+    
+    
+    @objc func addButtonTapped()
+    {
+        print("add tapped")
     }
     
     //-------------------------------------//
