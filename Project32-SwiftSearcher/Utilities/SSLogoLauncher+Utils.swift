@@ -10,92 +10,16 @@
 import UIKit
 import AVKit
 import AVFoundation
-/**
- ---------------------------------------------
- PERSISTENCE MGR
- 
- static var isFirstVisitStatus: Bool! = true {
- didSet { PersistenceManager.save(firstVisitStatus: self.isFirstVisitStatus) }
- }
- 
- static func save(firstVisitStatus: Bool)
- {
- do {
- let encoder = JSONEncoder()
- let encodedStatus = try encoder.encode(firstVisitStatus)
- defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisit)
- } catch {
- print("cannot save is first visit bool")
- }
- }
- 
- static func retrieveFirstVisitStatus() -> Bool
- {
- guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisit) as? Data
- else { return true }
- 
- do {
- let decoder = JSONDecoder()
- let savedStatus = try decoder.decode(Bool.self, from: visitStatusData)
- return savedStatus
- } catch {
- print("unable to load first visit status")
- return true
- }
- }
- ---------------------------------------------
- AVPLAYER+EXT
- 
- extension AVPlayer
- {
- var isPlaying: Bool { return rate != 0 && error == nil }
- }
- ---------------------------------------------
- CONSTANTS+UTILS
- 
- enum SaveKeys
- {
- static let isFirstVisit = "FirstVisit"
- }
- 
- enum VideoKeys
- {
- static let launchScreen = "launchscreen"
- static let playerLayerName = "PlayerLayerName"
- }
- 
- ---------------------------------------------
- SCENE DELEGATE
- in  func sceneWillResignActive(_ scene: UIScene) { }
- PersistenceManager.isFirstVisitStatus = true
- 
- ---------------------------------------------
- HOMEVC
- 
- var logoLauncher: XXLogoLauncher!
- var player = AVPlayer()
- 
- viewDidLoad()
- {
- PersistenceManager.isFirstVisitStatus = true
- }
- 
- deinit { logoLauncher.removeAllAVPlayerLayers() }
- 
- ---------------------------------------------
- */
 
-class NCLogoLauncher
+class SSLogoLauncher
 {
-    var targetVC: HomeTableVC!
+    var targetVC: HomeVC!
     var player: AVPlayer!
     var playerLayer: AVPlayerLayer!
     var animationDidPause = false
-    var isFirstVisit: Bool! = PersistenceManager.retrieveFirstVisitStatus() {
-        didSet { PersistenceManager.save(firstVisitStatus: isFirstVisit) }
-    }
+
     
-    init(targetVC: UIViewController) { self.targetVC = targetVC as? HomeTableVC }
+    init(targetVC: UIViewController) { self.targetVC = targetVC as? HomeVC }
     
     
     func configLogoLauncher( )
@@ -130,7 +54,6 @@ class NCLogoLauncher
     func maskHomeVCForIntro()
     {
         targetVC.navigationController?.isNavigationBarHidden = true
-        targetVC.addressBar.isHidden = true
         targetVC.view.backgroundColor = .black
     }
     
@@ -147,15 +70,15 @@ class NCLogoLauncher
     @objc func playerDidFinishPlaying()
     {
         targetVC.navigationController?.isNavigationBarHidden = false
-        targetVC.addressBar.isHidden = false
         targetVC.view.backgroundColor = .systemBackground
         
-        isFirstVisit = false
+        PersistenceManager.isFirstVisitStatus = false
         removeAllAVPlayerLayers()
         
-        targetVC.addWebView()
-        targetVC.setDefaultTitle()
         targetVC.configNavigation()
+        targetVC.configSearchController()
+        targetVC.configDiffableDataSource()
+        targetVC.fetchProjects()
     }
     
     
@@ -174,7 +97,7 @@ class NCLogoLauncher
     
     @objc func reinitializePlayerLayer()
     {
-        guard isFirstVisit else { return }
+        guard PersistenceManager.isFirstVisitStatus else { return }
         if let player = player {
             playerLayer = AVPlayerLayer(player: player)
             playerLayer?.name = VideoKeys.playerLayerName

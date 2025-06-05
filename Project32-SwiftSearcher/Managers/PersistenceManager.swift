@@ -12,7 +12,7 @@ enum ProjectPersistenceActionType
 enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
-    static var isFirstVisitStatus: Bool! = true {
+    static var isFirstVisitStatus: Bool! = fetchFirstVisitStatus() {
         didSet { PersistenceManager.saveFirstVisitStatus(status: self.isFirstVisitStatus) }
     }
     
@@ -78,22 +78,21 @@ enum PersistenceManager
     //-------------------------------------//
     // MARK: - SAVE / FETCH FIRST VISIT STATUS (FOR LOGO LAUNCHER)
     
-    static func saveFirstVisitStatus(status: Bool) -> SSError?
+    static func saveFirstVisitStatus(status: Bool)
     {
         do {
             let encoder = JSONEncoder()
             let encodedStatus = try encoder.encode(status)
-            defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisitStatus)
-            return nil
+            defaults.set(encodedStatus, forKey: SaveKeys.isFirstVisit)
         } catch {
-            return .failedToLoadFirstVisitStatus
+            print("failed ato save visit status"); return
         }
     }
     
     
     static func fetchFirstVisitStatus() -> Bool
     {
-        guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisitStatus) as? Data
+        guard let visitStatusData = defaults.object(forKey: SaveKeys.isFirstVisit) as? Data
         else { return true }
         
         do {

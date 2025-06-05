@@ -4,10 +4,12 @@
 
 import Foundation
 
-struct SSProject: Codable
+struct SSProject: Codable, Hashable
 {
     let title: String
     let subTitle: String
     let index: Int
     var completed: Bool = false
+    
+    func hash(into hasher: inout Hasher) { hasher.combine(title) }
 }

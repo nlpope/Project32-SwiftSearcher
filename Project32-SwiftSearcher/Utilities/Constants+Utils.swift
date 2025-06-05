@@ -7,5 +7,11 @@ import Foundation
 enum SaveKeys
 {
     static let projects = "projects"
-    static let isFirstVisitStatus = "isFirstVisitStatus"
+    static let isFirstVisit = "isFirstVisitStatus"    
+}
+
+enum VideoKeys
+{
+static let launchScreen = "launchscreen"
+static let playerLayerName = "PlayerLayerName"
 }
