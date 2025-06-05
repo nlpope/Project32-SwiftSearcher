@@ -97,6 +97,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  completionHandler(saveProjects(projects))
  note how you only want to do something with the error it spits out if saving is unsuccessful
  
+ * 1st prob - kept looping between sending empty array as completion to not reading array at all (nil)
+ > 
+ * 2nd prob - kept getting nil when attempting to update diffable datasource
+ > it's cause you had not yet called its config method in either the VDL or the VWAppear (either of which will work but now I prefer the VDL to keep it out of the logolauncher
+ 
  --------------------------
  TECHNOLOGIES USED / LEARNED:
  * Swift

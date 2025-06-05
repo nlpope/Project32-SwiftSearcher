@@ -7,7 +7,7 @@ import Foundation
 struct SSProject: Codable, Hashable
 {
     let title: String
-    let subTitle: String
+    let subtitle: String
     let index: Int
     var completed: Bool = false
     

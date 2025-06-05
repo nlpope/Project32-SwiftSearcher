@@ -21,7 +21,11 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = true
+        PersistenceManager.isFirstVisitStatus = false
+        configNavigation()
+        configSearchController()
+        configDiffableDataSource()
+        #warning("I moved my configdiffabledS into VDL and now it's working - why?")
     }
     
     
@@ -71,10 +75,27 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     {
         dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
-            cell.textLabel?.text = project.title == "" ? "Untitled" : project.title
-            cell.detailTextLabel?.text = project.subTitle == "" ? "" : project.subTitle
+            let cellTitle = project.title == "" ? "Untitled" : project.title
+            let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
+                        
+            cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle)
             return cell
         }
+    }
+    
+    //-------------------------------------//
+    // MARK: - CELL ATTRIBUTED STRINGS
+    
+    func makeAttributedString(title: String, subtitle: String) -> NSAttributedString
+    {
+        let titleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor: UIColor.purple]
+        let subtitleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)]
+        
+        let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
+        let subtitleString = NSAttributedString(string: subtitle, attributes: subtitleAttributes)
+        
+        titleString.append(subtitleString)
+        return titleString
     }
     
     //-------------------------------------//
@@ -82,27 +103,27 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     
     func createProjects()
     {
-        createProject(title: "Storm Viewer", subTitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards", index: 1)
+        createProject(title: "Storm Viewer", subtitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards", index: 1)
 
-        createProject(title: "Guess the Flag", subTitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController", index: 2)
+        createProject(title: "Guess the Flag", subtitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController", index: 2)
         
-        createProject(title: "Social Media", subTitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL", index: 3)
+        createProject(title: "Social Media", subtitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL", index: 3)
         
-        createProject(title: "Easy Browser", subTitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing", index: 4)
+        createProject(title: "Easy Browser", subtitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing", index: 4)
         
-        createProject(title:"Word Scramble", subTitle: "Closures, method return values, booleans, NSRange", index: 5)
+        createProject(title:"Word Scramble", subtitle: "Closures, method return values, booleans, NSRange", index: 5)
         
-        createProject(title: "Auto Layout", subTitle: "Get to grips with Auto Layout using practical examples and code", index: 6)
+        createProject(title: "Auto Layout", subtitle: "Get to grips with Auto Layout using practical examples and code", index: 6)
         
-        createProject(title: "Whitehouse Petitions", subTitle: "JSON, Data, UITabBarController", index: 7)
+        createProject(title: "Whitehouse Petitions", subtitle: "JSON, Data, UITabBarController", index: 7)
         
-        createProject(title: "7 Swifty Words", subTitle: "addTarget(), enumerated(), count, index(of:), property observers, range operators", index: 8)
+        createProject(title: "7 Swifty Words", subtitle: "addTarget(), enumerated(), count, index(of:), property observers, range operators", index: 8)
     }
     
     
-    func createProject(title: String, subTitle: String, index: Int)
+    func createProject(title: String, subtitle: String, index: Int)
     {
-        let proj = SSProject(title: "Project \(index): \(title)", subTitle: subTitle, index: index)
+        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, index: index)
         projects.append(proj)
         PersistenceManager.updateProjectsWith(project: proj, actionType: .add) { [weak self] error in
             guard let error = error else { return }
@@ -114,13 +135,15 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     
     @objc func addButtonTapped()
     {
+        // may need an activeArray logic down here to push the correct detail vc
         print("add tapped")
     }
     
     //-------------------------------------//
     // MARK: - TABLEVIEW METHODS
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         tableView.deselectRow(at: indexPath, animated: true)
         print("row selected")
     }
@@ -134,7 +157,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
         else { return }
         filteredProjects = projects.filter {
             $0.title.lowercased().contains(desiredFilter.lowercased())
-            || $0.subTitle.lowercased().contains(desiredFilter.lowercased())
+            || $0.subtitle.lowercased().contains(desiredFilter.lowercased())
         }
         updateDataSource(with: filteredProjects)
     }
@@ -149,15 +172,19 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     
     //-------------------------------------//
     // MARK: - PROJECT PERSISTENCE & DIFFABLE DATASOURCE UPDATES
-    
+
     func fetchProjects()
     {
+        print("inside homevc>fetchprojects")
         PersistenceManager.fetchProjects { [weak self] result in
             switch result {
             case .success(let projects):
-                if projects.count == 0 { self?.createProjects() }
-                else { self?.projects = projects; self?.updateDataSource(with: projects) }
+                print("success case")
+                if projects.count == 0 { print("projects bein created"); self?.createProjects() }
+//                #warning("prob child")
+                else { print("projectsLoaded"); self?.projects = projects; self?.updateDataSource(with: projects) }
             case .failure(let error):
+                print("fail case")
                 self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
             }
         }

@@ -2,10 +2,11 @@
 //  Project: Project32-SwiftSearcher
 //  Created by: Noah Pope on 6/3/25.
 
-
+#warning("add new logo launcher snippet this will be the default")
+//  * ADD THE AVPLAYER+EXT FILE
+//  * ADD THE DEINIT METHOD
 //  * SEE IOS NOTES CLONE FOR 'ISFIRSTVISIT' REFERENCES IN SCENEDELEGATE
 //  * BE SURE 'FORRESOURCE' NAME INS CONTANTS MATCHES LAUNCHSCREEN.MP4 FILE
-
 
 import UIKit
 import AVKit
@@ -74,10 +75,8 @@ class SSLogoLauncher
         
         PersistenceManager.isFirstVisitStatus = false
         removeAllAVPlayerLayers()
-        
-        targetVC.configNavigation()
-        targetVC.configSearchController()
-        targetVC.configDiffableDataSource()
+    
+        // KEEP ALL CONFIG CALLS IN THE VDL (IN ONE PLACE) IF POSSIBLE SO ITS NOT NEEDED IN HERE AND THE VDAppear
         targetVC.fetchProjects()
     }
     
