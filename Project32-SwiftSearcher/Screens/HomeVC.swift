@@ -24,7 +24,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = true
+        PersistenceManager.isFirstVisitStatus = false
         configNavigation()
         configSearchController()
         configDiffableDataSource()
@@ -103,6 +103,33 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     }
     
     //-------------------------------------//
+    // MARK: - NETWORK CALLS
+    
+    func fetchProjects()
+    {
+        NetworkManager.shared.fetchProjects { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let projects):
+                self.projects = projects; self.updateDataSource(with: projects)
+            case .failure(let error):
+                self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+        
+        
+//        PersistenceManager.fetchProjects { [weak self] result in
+//            switch result {
+//            case .success(let projects):
+//                if projects.count == 0 { self?.createProjects() }
+//                else { self?.projects = projects; self?.updateDataSource(with: projects) }
+//            case .failure(let error):
+//                self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
+//            }
+//        }
+    }
+    
+    //-------------------------------------//
     // MARK: - PROJECT CREATION, APPENDING, & EDITING
     
 //    func createProjects()
@@ -171,32 +198,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     { if searchText == "" { updateDataSource(with: projects) } }
     
     //-------------------------------------//
-    // MARK: - PROJECT PERSISTENCE & DIFFABLE DATASOURCE UPDATES
-
-    func fetchProjects()
-    {
-        NetworkManager.shared.fetchProjects { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let projects):
-                self.projects = projects; self.updateDataSource(with: projects)
-            case .failure(let error):
-                self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
-            }
-        }
-        
-        
-//        PersistenceManager.fetchProjects { [weak self] result in
-//            switch result {
-//            case .success(let projects):
-//                if projects.count == 0 { self?.createProjects() }
-//                else { self?.projects = projects; self?.updateDataSource(with: projects) }
-//            case .failure(let error):
-//                self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
-//            }
-//        }
-    }
-    
+    // MARK: - DIFFABLE DATASOURCE UPDATES
     
     func updateDataSource(with projects: [SSProject])
     {

@@ -23,13 +23,17 @@ class NetworkManager
             else { completed(.failure(.invalidResponse)); return }
             
             guard let data = data else { completed(.failure(.invalidData)); return }
+            print(data)
             
             do {
                 let decoder = JSONDecoder()
-                let projects = try decoder.decode([SSProject].self, from: data)
+                // PROB CHILD
+                //                let projects = try decoder.decode([SSProject].self, from: data)
+                let projects = try decoder.decode(Token.self, from: data)
                 completed(.success(projects))
             } catch {
-                completed(.failure(.invalidData))
+                print(error)
+                completed(.failure(.decodingFailure))
             }
         }
         task.resume()

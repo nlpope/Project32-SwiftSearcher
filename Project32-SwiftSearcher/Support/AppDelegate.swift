@@ -106,21 +106,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  > still ran into problems but I'm thinking it was in regards to the below as the error msgs changed
  * 2nd prob - kept getting nil when attempting to update diffable datasource
  > it's cause you had not yet called its config method in either the VDL or the VWAppear (either of which will work but now I prefer the VDL to keep it out of the logolauncher
- 
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  TECHNOLOGIES USED / LEARNED:
  * Swift
  * Swift Keychain Wrapper
+ * Google Apps Script - converts shpreadsheets into useable APIs
+ --------------------------
+ XXXXXXXXXXXXXXXXXXXXXXXX
+ --------------------------
+ HORNS-TO-TOOT::
+ * Instead of creating only the first 8 projects from scratch to load into the tableview as Paul Hudson instructs, I've constructed a Project model that holds / loads a project's title, subtitle, index, and skillset to be decoded via an api call (see next horn)
+ * I created a fully functional API for the hacking with swift website's project list page using Google's App Script to pull values from a spreadsheet I wrote myself; Allowing me to fetch the projects from a consistent source without having to create, store, update the datasource then save to the persistence manager every load for values that will never differ.
+ * Added a search feature using a diffable datasource, requiring me to make the SSProject model both hashable and codable
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  REFERENCES & CREDITS:
  * KeychainOptions.swift & SwiftKeychainWrapper by MIT's James Blair on 4/24/16.
+ * API creation via google sheets
+ > YT: https://dev.to/varshithvhegde/easy-way-to-create-your-own-api-for-free-1mbc
  * Solve for keyboard blocking textfield (by SwiftArcade)
- > YT source: https://www.youtube.com/watch?v=O4tP7egAV1I&ab_channel=SwiftArcade
- > Git source: https://github.com/jrasmusson/ios-professional-course/blob/main/Password-Reset/7-Dealing-Keyboards/README.md
+ > YT: https://www.youtube.com/watch?v=O4tP7egAV1I&ab_channel=SwiftArcade
+ > GitHub: https://github.com/jrasmusson/ios-professional-course/blob/main/Password-Reset/7-Dealing-Keyboards/README.md
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------

@@ -11,4 +11,5 @@ enum SSError: String, Error
     case dataTaskFailed = "The data task or url has failed. Please try again."
     case invalidResponse = "The response received from the source API was invalid. Please try again."
     case invalidData = "The data received from the source API was invalid. Please try again."
+    case decodingFailure = "The decoding portion failed. Please try again."
 }
