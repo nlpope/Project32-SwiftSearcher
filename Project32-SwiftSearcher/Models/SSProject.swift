@@ -8,6 +8,7 @@ struct SSProject: Codable, Hashable
 {
     let title: String
     let subtitle: String
+    let skills: String
     let index: Int
     var completed: Bool = false
     

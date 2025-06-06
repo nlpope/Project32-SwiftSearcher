@@ -77,8 +77,9 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
             let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
             let cellTitle = project.title == "" ? "Untitled" : project.title
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
+            let cellSkillList = project.skills == "" ? "" : project.skills
                         
-            cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle)
+            cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
             return cell
         }
     }
@@ -86,13 +87,15 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     //-------------------------------------//
     // MARK: - CELL ATTRIBUTED STRINGS
     
-    func makeAttributedString(title: String, subtitle: String) -> NSAttributedString
+    func makeAttributedString(title: String, subtitle: String, skills: String) -> NSAttributedString
     {
         let titleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .headline), NSAttributedString.Key.foregroundColor: UIColor.purple]
         let subtitleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)]
+        let skillsAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         
         let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
         let subtitleString = NSAttributedString(string: subtitle, attributes: subtitleAttributes)
+        let skillsString = NSAttributedString(string: skills, attributes: skillsAttributes)
         
         titleString.append(subtitleString)
         return titleString
@@ -101,29 +104,29 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     //-------------------------------------//
     // MARK: - PROJECT CREATION, APPENDING, & EDITING
     
-    func createProjects()
-    {
-        createProject(title: "Storm Viewer", subtitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards", index: 1)
-
-        createProject(title: "Guess the Flag", subtitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController", index: 2)
-        
-        createProject(title: "Social Media", subtitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL", index: 3)
-        
-        createProject(title: "Easy Browser", subtitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing", index: 4)
-        
-        createProject(title:"Word Scramble", subtitle: "Closures, method return values, booleans, NSRange", index: 5)
-        
-        createProject(title: "Auto Layout", subtitle: "Get to grips with Auto Layout using practical examples and code", index: 6)
-        
-        createProject(title: "Whitehouse Petitions", subtitle: "JSON, Data, UITabBarController", index: 7)
-        
-        createProject(title: "7 Swifty Words", subtitle: "addTarget(), enumerated(), count, index(of:), property observers, range operators", index: 8)
-    }
+//    func createProjects()
+//    {
+//        createProject(title: "Storm Viewer", subtitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards", index: 1)
+//
+//        createProject(title: "Guess the Flag", subtitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController", index: 2)
+//        
+//        createProject(title: "Social Media", subtitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL", index: 3)
+//        
+//        createProject(title: "Easy Browser", subtitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing", index: 4)
+//        
+//        createProject(title:"Word Scramble", subtitle: "Closures, method return values, booleans, NSRange", index: 5)
+//        
+//        createProject(title: "Auto Layout", subtitle: "Get to grips with Auto Layout using practical examples and code", index: 6)
+//        
+//        createProject(title: "Whitehouse Petitions", subtitle: "JSON, Data, UITabBarController", index: 7)
+//        
+//        createProject(title: "7 Swifty Words", subtitle: "addTarget(), enumerated(), count, index(of:), property observers, range operators", index: 8)
+//    }
     
     
-    func createProject(title: String, subtitle: String, index: Int)
+    func createProject(title: String, subtitle: String, skills: String, index: Int)
     {
-        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, index: index)
+        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, skills: skills, index: index)
         projects.append(proj)
         PersistenceManager.updateProjectsWith(project: proj, actionType: .add) { [weak self] error in
             guard let error = error else { return }
@@ -171,15 +174,26 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
 
     func fetchProjects()
     {
-        PersistenceManager.fetchProjects { [weak self] result in
+        NetworkManager.shared.fetchProjects { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let projects):
-                if projects.count == 0 { self?.createProjects() }
-                else { self?.projects = projects; self?.updateDataSource(with: projects) }
+                self.projects = projects; self.updateDataSource(with: projects)
             case .failure(let error):
-                self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
+                self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
             }
         }
+        
+        
+//        PersistenceManager.fetchProjects { [weak self] result in
+//            switch result {
+//            case .success(let projects):
+//                if projects.count == 0 { self?.createProjects() }
+//                else { self?.projects = projects; self?.updateDataSource(with: projects) }
+//            case .failure(let error):
+//                self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
+//            }
+//        }
     }
     
     
