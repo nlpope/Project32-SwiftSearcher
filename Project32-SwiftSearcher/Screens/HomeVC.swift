@@ -5,6 +5,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import SafariServices
 
 class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating
 {
@@ -13,9 +14,11 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     var dataSource: UITableViewDiffableDataSource<Section, SSProject>!
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
-    var addButton: UIBarButtonItem!
+    var isSearching = false
+    var editModeOn = false
     var logoLauncher: SSLogoLauncher!
     var player = AVPlayer()
+    let baseURL = "https://www.hackingwithswift.com/read/"
     
     
     override func viewDidLoad()
@@ -52,8 +55,6 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
         view.backgroundColor = .systemBackground
         title = "Projects"
         navigationController?.navigationBar.prefersLargeTitles = true
-        addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addButtonTapped))
-        navigationController?.navigationItem.rightBarButtonItem = addButton
     }
     
     
@@ -98,7 +99,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     }
     
     //-------------------------------------//
-    // MARK: - PROJECT CREATION & APPENDING
+    // MARK: - PROJECT CREATION, APPENDING, & EDITING
     
     func createProjects()
     {
@@ -131,19 +132,14 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
         updateDataSource(with: projects)
     }
     
-    
-    @objc func addButtonTapped()
-    {
-        // may need an activeArray logic down here to push the correct detail vc
-        print("add tapped")
-    }
-    
     //-------------------------------------//
     // MARK: - TABLEVIEW METHODS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        
         print("row selected")
     }
     
@@ -157,6 +153,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
         filteredProjects = projects.filter {
             $0.title.lowercased().contains(desiredFilter.lowercased())
             || $0.subtitle.lowercased().contains(desiredFilter.lowercased())
+            || $0.index.description.contains(desiredFilter)
         }
         updateDataSource(with: filteredProjects)
     }

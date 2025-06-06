@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		401A0A532DF346B100B02B6C /* UIResponder+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A0A522DF346B100B02B6C /* UIResponder+Ext.swift */; };
+		401A0A552DF347B900B02B6C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 401A0A542DF347B900B02B6C /* NetworkManager.swift */; };
 		407B54312DEFC79A00109BAE /* SSProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54302DEFC79A00109BAE /* SSProject.swift */; };
 		407B54342DEFCBFB00109BAE /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B54332DEFCBFB00109BAE /* PersistenceManager.swift */; };
 		407B543D2DEFE1A400109BAE /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		401A0A522DF346B100B02B6C /* UIResponder+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Ext.swift"; sourceTree = "<group>"; };
+		401A0A542DF347B900B02B6C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		407B54302DEFC79A00109BAE /* SSProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSProject.swift; sourceTree = "<group>"; };
 		407B54332DEFCBFB00109BAE /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				407B54332DEFCBFB00109BAE /* PersistenceManager.swift */,
+				401A0A542DF347B900B02B6C /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -126,6 +131,7 @@
 			children = (
 				407B543C2DEFE1A400109BAE /* UIViewController+Ext.swift */,
 				40B5EE8B2DF1120C00BDE01E /* AVPlayer+Ext.swift */,
+				401A0A522DF346B100B02B6C /* UIResponder+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				407B54422DEFE85300109BAE /* SSError+Utils.swift in Sources */,
 				407B54402DEFE55600109BAE /* Constants+Utils.swift in Sources */,
 				409583182DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodeld in Sources */,
+				401A0A532DF346B100B02B6C /* UIResponder+Ext.swift in Sources */,
 				407B544B2DF001B200109BAE /* KeychainWrapper.swift in Sources */,
 				407B544C2DF001B200109BAE /* KeychainItemAccessibility.swift in Sources */,
 				407B543D2DEFE1A400109BAE /* UIViewController+Ext.swift in Sources */,
@@ -354,6 +361,7 @@
 				409583192DEFC3C70057A642 /* SceneDelegate.swift in Sources */,
 				407B544E2DF0099300109BAE /* SSLogoLauncher+Utils.swift in Sources */,
 				407B54342DEFCBFB00109BAE /* PersistenceManager.swift in Sources */,
+				401A0A552DF347B900B02B6C /* NetworkManager.swift in Sources */,
 				407B54312DEFC79A00109BAE /* SSProject.swift in Sources */,
 				4095831A2DEFC3C70057A642 /* HomeVC.swift in Sources */,
 			);

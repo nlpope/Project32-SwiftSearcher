@@ -118,6 +118,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  --------------------------
  REFERENCES & CREDITS:
  * KeychainOptions.swift & SwiftKeychainWrapper by MIT's James Blair on 4/24/16.
+ * Solve for keyboard blocking textfield (by SwiftArcade)
+ > YT source: https://www.youtube.com/watch?v=O4tP7egAV1I&ab_channel=SwiftArcade
+ > Git source: https://github.com/jrasmusson/ios-professional-course/blob/main/Password-Reset/7-Dealing-Keyboards/README.md
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
