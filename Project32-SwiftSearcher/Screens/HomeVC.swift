@@ -94,10 +94,11 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
         let skillsAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline), NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel]
         
         let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
-        let subtitleString = NSAttributedString(string: subtitle, attributes: subtitleAttributes)
+        let subtitleString = NSAttributedString(string: "\(subtitle)\n", attributes: subtitleAttributes)
         let skillsString = NSAttributedString(string: skills, attributes: skillsAttributes)
         
         titleString.append(subtitleString)
+        titleString.append(skillsString)
         return titleString
     }
     
@@ -124,16 +125,16 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
 //    }
     
     
-    func createProject(title: String, subtitle: String, skills: String, index: Int)
-    {
-        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, skills: skills, index: index)
-        projects.append(proj)
-        PersistenceManager.updateProjectsWith(project: proj, actionType: .add) { [weak self] error in
-            guard let error = error else { return }
-            self?.presentSSAlertOnMainThread(alertTitle: "Failed to save project", message: error.rawValue, buttonTitle: "Ok")
-        }
-        updateDataSource(with: projects)
-    }
+//    func createProject(title: String, subtitle: String, skills: String, index: Int)
+//    {
+//        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, skills: skills, index: index)
+//        projects.append(proj)
+//        PersistenceManager.updateProjectsWith(project: proj, actionType: .add) { [weak self] error in
+//            guard let error = error else { return }
+//            self?.presentSSAlertOnMainThread(alertTitle: "Failed to save project", message: error.rawValue, buttonTitle: "Ok")
+//        }
+//        updateDataSource(with: projects)
+//    }
     
     //-------------------------------------//
     // MARK: - TABLEVIEW METHODS

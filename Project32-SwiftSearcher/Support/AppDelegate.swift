@@ -90,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  * = problem
  >  = solution
  
- * Persistence Mgr. > updateProjectsWith() - having trouble understanding closure syntax in persistence mgr funcs
+ * (NOTE: METHOD NO LONGER EXISTS, BUT STILL RELEVANT) Persistence Mgr. > updateProjectsWith() - having trouble understanding closure syntax in persistence mgr funcs
  > I get it - the SSError? in the below sig is referring to the parameter you'll play with in the '{' after calling 'updateProjectsWith...' - so yes, it's what you'll play with (the parameter[s]) once it's done - where i was getting stumped is in thinking that (SSError?) -> Void referred to what saveProjects() had to be, but think of it instead as saveProjects() spitting out the parameter you'll be playing with (SSError?) when 'updatProjectsWith...' is done - see below:
  
  COMPLETIONHANDLER IN SIGNATURE = "I EXPECT 'SAVE()' TO SPIT OUT AN SSERROR OR NIL & GIVE IT BACK TO ME FOR USE IN MY COMPLETION CLOSURE"
