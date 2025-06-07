@@ -18,7 +18,6 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     var editModeOn = false
     var logoLauncher: SSLogoLauncher!
     var player = AVPlayer()
-    let baseURL = "https://www.hackingwithswift.com/read/"
     
     
     override func viewDidLoad()
@@ -85,7 +84,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     }
     
     //-------------------------------------//
-    // MARK: - CELL ATTRIBUTED STRINGS
+    // MARK: - ATTRIBUTED STRING CREATION
     
     func makeAttributedString(title: String, subtitle: String, skills: String) -> NSAttributedString
     {
@@ -119,11 +118,25 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     }
 
     //-------------------------------------//
-    // MARK: - TABLEVIEW METHODS
+    // MARK: - CLICK HANDLING & SAFARI PRESENTATION METHODS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        let activeArray = isSearching ? filteredProjects : projects
         tableView.deselectRow(at: indexPath, animated: true)
+        showTutorial(activeArray[indexPath.row].index)
+    }
+    
+    
+    func showTutorial(_ which: Int)
+    {
+        if let url = URL(string: "\(URLKeys.baseURL)\(which)") {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        }
     }
     
     //-------------------------------------//
@@ -133,9 +146,11 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     {
         guard let desiredFilter = searchController.searchBar.text, !desiredFilter.isEmpty
         else { return }
+        isSearching = true
         filteredProjects = projects.filter {
             $0.title.lowercased().contains(desiredFilter.lowercased())
             || $0.subtitle.lowercased().contains(desiredFilter.lowercased())
+            || $0.skills.lowercased().contains(desiredFilter.lowercased())
             || $0.index.description.contains(desiredFilter)
         }
         updateDataSource(with: filteredProjects)
@@ -143,11 +158,14 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
-    { searchBar.resignFirstResponder(); updateDataSource(with: projects) }
+    { searchBar.resignFirstResponder(); isSearching = false; updateDataSource(with: projects) }
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
-    { if searchText == "" { updateDataSource(with: projects) } }
+    {
+        if searchText == "" { isSearching = false; updateDataSource(with: projects) }
+        else { isSearching = true }
+    }
     
     //-------------------------------------//
     // MARK: - DIFFABLE DATASOURCE UPDATES

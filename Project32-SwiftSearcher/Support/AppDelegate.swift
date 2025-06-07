@@ -6,68 +6,38 @@ import UIKit
 import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        return true
-    }
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { return true }
 
     // MARK: UISceneSession Lifecycle
 
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration
+    {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {}
 
     // MARK: - Core Data stack
 
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
         let container = NSPersistentContainer(name: "Project32_SwiftSearcher")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
+            if let error = error as NSError? { fatalError("Unresolved error \(error), \(error.userInfo)") }
         })
         return container
     }()
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    func saveContext ()
+    {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
@@ -91,7 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  >  = solution
  
  * (NOTE: METHOD NO LONGER EXISTS, BUT STILL RELEVANT) Persistence Mgr. > updateProjectsWith() - having trouble understanding closure syntax in persistence mgr funcs
- > I get it - the SSError? in the below sig is referring to the parameter you'll play with in the '{' after calling 'updateProjectsWith...' - so yes, it's what you'll play with (the parameter[s]) once it's done - where i was getting stumped is in thinking that (SSError?) -> Void referred to what saveProjects() had to be, but think of it instead as saveProjects() spitting out the parameter you'll be playing with (SSError?) when 'updatProjectsWith...' is done - see below:
+ > I get it - the SSError? in the below sig is referring to the parameter you'll play with in the '{' after calling 'updateProjectsWith...'
+ > .. so yes, it's what you'll play with (the parameter[s]) once it's done - where i was getting stumped is in thinking that (SSError?) -> Void referred to what saveProjects() had to be,
+ > .. but think of it instead as saveProjects() spitting out the parameter you'll be playing with (SSError?) when 'updatProjectsWith...' is done - see below:
  
  COMPLETIONHANDLER IN SIGNATURE = "I EXPECT 'SAVE()' TO SPIT OUT AN SSERROR OR NIL & GIVE IT BACK TO ME FOR USE IN MY COMPLETION CLOSURE"
  completionHandler(saveProjects(projects))
@@ -113,13 +85,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  * Swift
  * Swift Keychain Wrapper
  * Google Apps Script - converts shpreadsheets into useable APIs
+ > https://script.google.com/u/0/home/projects/1EqBVWRNAnpdRemlynHLjhZceZS0REzXlzscHSMUWnabauAYBmh7-LmDP/edit
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  HORNS-TO-TOOT::
- * Instead of creating only the first 8 projects from scratch to load into the tableview as Paul Hudson instructs, I've constructed a Project model that holds / loads a project's title, subtitle, index, and skillset to be decoded via an api call (see next horn)
- * I created a fully functional API for the hacking with swift website's project list page using Google's App Script to pull values from a spreadsheet I wrote myself; Allowing me to fetch the projects from a consistent source without having to create, store, update the datasource then save to the persistence manager every load for values that will never differ.
- * Added a search feature using a diffable datasource, requiring me to make the SSProject model both hashable and codable
+ 🎺 Instead of creating only the first 8 projects from scratch to load into the tableview as Paul Hudson instructs, I've constructed a Project model that holds / loads a project's title, subtitle, index, and skillset to be decoded via an api call (see next horn)
+ 🎺 Created a fully functional API for the hacking with swift website's project list page using Google's App Script to pull values from a spreadsheet I wrote myself
+ > .. Allowing me to fetch the projects from a consistent source without having to create, store, update the datasource then save to the persistence manager every load for values that will never differ.
+ 🎺 Added a search feature using a diffable datasource, requiring me to make the SSProject model both hashable and codable
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
