@@ -4,47 +4,15 @@
 
 import Foundation
 
-struct Token: Codable
+struct APIPayload: Codable
 {
-    let projects: Response
+    let data: [SSProject]
 }
 
 struct SSProject: Codable, Hashable
 {
-    var data: String
-    
-    let title: String
-    let subtitle: String
-    let skills: String
-//    let index: Int
-    let index: String
-//    var completed: Bool = false
-    
-//    enum CodingKeys: String, CodingKey
-//    {
-//        case title: String
-//        case subtitle
-//    }
-    
-    func hash(into hasher: inout Hasher) { hasher.combine(title) }
-}
-
-struct Response: Codable, Hashable
-{
-    var data: String
-    
-    let title: String
-    let subtitle: String
-    let skills: String
-//    let index: Int
-    let index: String
-//    var completed: Bool = false
-    
-//    enum CodingKeys: String, CodingKey
-//    {
-//        case title: String
-//        case subtitle
-//    }
+    let title, subtitle, skills: String
+    let index: Int    
     
     func hash(into hasher: inout Hasher) { hasher.combine(title) }
 }

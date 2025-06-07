@@ -29,8 +29,8 @@ class NetworkManager
                 let decoder = JSONDecoder()
                 // PROB CHILD
                 //                let projects = try decoder.decode([SSProject].self, from: data)
-                let projects = try decoder.decode(Token.self, from: data)
-                completed(.success(projects))
+                let payload = try decoder.decode(APIPayload.self, from: data)
+                completed(.success(payload.data))
             } catch {
                 print(error)
                 completed(.failure(.decodingFailure))
