@@ -7,7 +7,7 @@ import AVKit
 import AVFoundation
 import SafariServices
 
-class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdating
+class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
 {
     enum Section { case main }
     
@@ -106,8 +106,11 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     
     func fetchProjects()
     {
+        showLoadingView()
         NetworkManager.shared.fetchProjects { [weak self] result in
             guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case .success(let projects):
                 self.projects = projects; self.updateDataSource(with: projects)

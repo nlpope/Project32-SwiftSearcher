@@ -93,6 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  🎺 Instead of creating only the first 8 projects from scratch to load into the tableview as Paul Hudson instructs, I've constructed a Project model that holds / loads a project's title, subtitle, index, and skillset to be decoded via an api call (see next horn)
  🎺 Created a fully functional API for the hacking with swift website's project list page using Google's App Script to pull values from a spreadsheet I wrote myself
  > .. Allowing me to fetch the projects from a consistent source without having to create, store, update the datasource then save to the persistence manager every load for values that will never differ.
+ 🎺 For the API call needing a bit of time before the user sees anything, I've converted the normal tableView into a custom DataLoadingViewController to show progress
  🎺 Added a search feature using a diffable datasource, requiring me to make the SSProject model both hashable and codable
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
