@@ -24,7 +24,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = false
+        PersistenceManager.isFirstVisitStatus = true
         configNavigation()
         configSearchController()
         configDiffableDataSource()
@@ -75,7 +75,7 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
     {
         dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
-            let cellTitle = project.title == "" ? "Untitled" : project.title
+            let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
                         
@@ -116,62 +116,14 @@ class HomeVC: UITableViewController, UISearchBarDelegate, UISearchResultsUpdatin
                 self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
             }
         }
-        
-        
-//        PersistenceManager.fetchProjects { [weak self] result in
-//            switch result {
-//            case .success(let projects):
-//                if projects.count == 0 { self?.createProjects() }
-//                else { self?.projects = projects; self?.updateDataSource(with: projects) }
-//            case .failure(let error):
-//                self?.presentSSAlertOnMainThread(alertTitle: "Load failed", message: error.rawValue, buttonTitle: "Ok")
-//            }
-//        }
     }
-    
-    //-------------------------------------//
-    // MARK: - PROJECT CREATION, APPENDING, & EDITING
-    
-//    func createProjects()
-//    {
-//        createProject(title: "Storm Viewer", subtitle: "Constants & variables, UITableView, UIImageViw, FileManager, storyboards", index: 1)
-//
-//        createProject(title: "Guess the Flag", subtitle: "@2x and @3x images, asset catalogs, integers, doubles, floats, operators (+= and -=), UIButton, enums, CALayer, UIColor, random numbers, actions, string interpolation, UIAlertController", index: 2)
-//        
-//        createProject(title: "Social Media", subtitle: "UIBarButtonItem, UIActivityViewController, the Social framework, URL", index: 3)
-//        
-//        createProject(title: "Easy Browser", subtitle: "loadView(), WKWebView, delegation, classes and structs, URLRequest, UIToolbar, UIProgressView, key-value observing", index: 4)
-//        
-//        createProject(title:"Word Scramble", subtitle: "Closures, method return values, booleans, NSRange", index: 5)
-//        
-//        createProject(title: "Auto Layout", subtitle: "Get to grips with Auto Layout using practical examples and code", index: 6)
-//        
-//        createProject(title: "Whitehouse Petitions", subtitle: "JSON, Data, UITabBarController", index: 7)
-//        
-//        createProject(title: "7 Swifty Words", subtitle: "addTarget(), enumerated(), count, index(of:), property observers, range operators", index: 8)
-//    }
-    
-    
-//    func createProject(title: String, subtitle: String, skills: String, index: Int)
-//    {
-//        let proj = SSProject(title: "Project \(index): \(title)", subtitle: subtitle, skills: skills, index: index)
-//        projects.append(proj)
-//        PersistenceManager.updateProjectsWith(project: proj, actionType: .add) { [weak self] error in
-//            guard let error = error else { return }
-//            self?.presentSSAlertOnMainThread(alertTitle: "Failed to save project", message: error.rawValue, buttonTitle: "Ok")
-//        }
-//        updateDataSource(with: projects)
-//    }
-    
+
     //-------------------------------------//
     // MARK: - TABLEVIEW METHODS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        
-        print("row selected")
     }
     
     //-------------------------------------//

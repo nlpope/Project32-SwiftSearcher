@@ -23,12 +23,9 @@ class NetworkManager
             else { completed(.failure(.invalidResponse)); return }
             
             guard let data = data else { completed(.failure(.invalidData)); return }
-            print(data)
             
             do {
                 let decoder = JSONDecoder()
-                // PROB CHILD
-                //                let projects = try decoder.decode([SSProject].self, from: data)
                 let payload = try decoder.decode(APIPayload.self, from: data)
                 completed(.success(payload.data))
             } catch {
