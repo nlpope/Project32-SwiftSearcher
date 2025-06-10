@@ -95,12 +95,20 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     {
         dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
+            
             let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
                         
-            if self.favorites.contains(project) { cell.editingAccessoryType = .checkmark }
-            else { cell.editingAccessoryType = .none }
+            if self.favorites.contains(project) {
+                cell.editingAccessoryType = .checkmark
+//                cell.editingStyle = .delete
+            }
+            else {
+                cell.editingAccessoryType = .none
+//                cell.editingStyle = .insert
+            }
+            
             cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
             return cell
         }
@@ -141,28 +149,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             case .failure(let error):
                 self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
             }
-        }
-    }
-
-    //-------------------------------------//
-    // MARK: - CLICK HANDLING & SAFARI PRESENTATION METHODS
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        let activeArray = isSearching ? filteredProjects : projects
-        tableView.deselectRow(at: indexPath, animated: true)
-        showTutorial(activeArray[indexPath.row].index)
-    }
-    
-    
-    func showTutorial(_ which: Int)
-    {
-        if let url = URL(string: "\(URLKeys.baseURL)\(which)") {
-            let config = SFSafariViewController.Configuration()
-            config.entersReaderIfAvailable = true
-            
-            let vc = SFSafariViewController(url: url, configuration: config)
-            present(vc, animated: true)
         }
     }
     
@@ -214,6 +200,39 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         snapshot.appendItems(projects)
         
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+    }
+    
+    //-------------------------------------//
+    // MARK: - TABLEVIEW DELEGATE
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        let activeArray = isSearching ? filteredProjects : projects
+        tableView.deselectRow(at: indexPath, animated: true)
+        showTutorial(activeArray[indexPath.row].index)
+    }
+    
+    
+//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
+//    {
+//        for project in projects {
+//            if favorites.contains(project) { return .delete }
+//            else { return .insert }
+//        }
+//    }
+    
+    //-------------------------------------//
+    // MARK: - SAFARI PRESENTATION METHODS
+    
+    func showTutorial(_ which: Int)
+    {
+        if let url = URL(string: "\(URLKeys.baseURL)\(which)") {
+            let config = SFSafariViewController.Configuration()
+            config.entersReaderIfAvailable = true
+            
+            let vc = SFSafariViewController(url: url, configuration: config)
+            present(vc, animated: true)
+        }
     }
     
     //-------------------------------------//
