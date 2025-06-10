@@ -15,7 +15,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
     var isSearching = false
-    var favorites = [SSProject]
+    var favorites = [Int]()
     
     var logoLauncher: SSLogoLauncher!
     var player = AVPlayer()
