@@ -16,6 +16,9 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var filteredProjects = [SSProject]()
     var isSearching = false
     var favorites = [SSProject]()
+    var editModeOn = false {
+        didSet { tableView.isEditing = editModeOn ? true : false }
+    }
     
     var logoLauncher: SSLogoLauncher!
     var player = AVPlayer()
@@ -27,19 +30,16 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         PersistenceManager.isFirstVisitStatus = true
         configNavigation()
         configSearchController()
+        configTableView()
         configDiffableDataSource()
-        fetchFavorites()
     }
     
     
     override func viewWillAppear(_ animated: Bool)
     {
         logoLauncher = SSLogoLauncher(targetVC: self)
-        if PersistenceManager.fetchFirstVisitStatus() {
-            logoLauncher.configLogoLauncher()
-        } else {
-            fetchProjects()
-        }
+        if PersistenceManager.fetchFirstVisitStatus() { logoLauncher.configLogoLauncher() }
+        else { fetchProjects(); fetchFavorites() }
     }
     
     
@@ -56,6 +56,19 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         view.backgroundColor = .systemBackground
         title = "Projects"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        if editModeOn {
+            let editItem = UIBarButtonItem(barButtonSystemItem: .done,
+                                           target: self,
+                                           action: #selector(toggleEditMode))
+            navigationItem.rightBarButtonItem = editItem
+        } else {
+            let editItem = UIBarButtonItem(barButtonSystemItem: .edit,
+                                           target: self,
+                                           action: #selector(toggleEditMode))
+            navigationItem.rightBarButtonItem = editItem
+        }
+        
     }
     
     
@@ -72,6 +85,12 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     
+    func configTableView()
+    {
+        tableView.allowsSelectionDuringEditing = true
+    }
+    
+    
     func configDiffableDataSource()
     {
         dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
@@ -80,6 +99,8 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
                         
+            if self.favorites.contains(project) { cell.editingAccessoryType = .checkmark }
+            else { cell.editingAccessoryType = .none }
             cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
             return cell
         }
@@ -122,15 +143,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             }
         }
     }
-    
-    
-//    func fetchFavorites()
-//    {
-//        showLoadingView()
-//        PersistenceManager.fetchFavorites { [weak self] result in
-//            <#code#>
-//        }
-//    }
 
     //-------------------------------------//
     // MARK: - CLICK HANDLING & SAFARI PRESENTATION METHODS
@@ -183,6 +195,16 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
+    // MARK: - EDIT MODE (ADD/REMOVE FAVORITES)
+    
+    @objc func toggleEditMode()
+    {
+        editModeOn.toggle()
+        updateDataSource(with: projects)
+        configNavigation()
+    }
+    
+    //-------------------------------------//
     // MARK: - DIFFABLE DATASOURCE UPDATES
     
     func updateDataSource(with projects: [SSProject])
@@ -195,7 +217,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
-    // MARK: - PERSISTENCE METHODS
+    // MARK: - SAVE / FETCH
     
     func fetchFavorites()
     {
