@@ -6,8 +6,8 @@ import Foundation
 
 enum SaveKeys
 {
-    static let projects = "Projects"
     static let isFirstVisit = "isFirstVisitStatus"
+    static let favorites = "Favorites"
 }
 
 enum VideoKeys

@@ -28,6 +28,8 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         configNavigation()
         configSearchController()
         configDiffableDataSource()
+        
+        
     }
     
     
@@ -115,11 +117,21 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             switch result {
             case .success(let projects):
                 self.projects = projects; self.updateDataSource(with: projects)
+            /**--------------------------------------------------------------------------**/
             case .failure(let error):
                 self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
+    
+    
+//    func fetchFavorites()
+//    {
+//        showLoadingView()
+//        PersistenceManager.fetchFavorites { [weak self] result in
+//            <#code#>
+//        }
+//    }
 
     //-------------------------------------//
     // MARK: - CLICK HANDLING & SAFARI PRESENTATION METHODS
