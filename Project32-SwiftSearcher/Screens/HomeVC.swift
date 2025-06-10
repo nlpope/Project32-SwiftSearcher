@@ -15,7 +15,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
     var isSearching = false
-    var favorites = [Int]()
+    var favorites = [SSProject]()
     
     var logoLauncher: SSLogoLauncher!
     var player = AVPlayer()
@@ -28,8 +28,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         configNavigation()
         configSearchController()
         configDiffableDataSource()
-        
-        
+        fetchFavorites()
     }
     
     
@@ -193,5 +192,20 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         snapshot.appendItems(projects)
         
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+    }
+    
+    //-------------------------------------//
+    // MARK: - PERSISTENCE METHODS
+    
+    func fetchFavorites()
+    {
+        PersistenceManager.fetchFavorites { result in
+            switch result {
+            case .success(let savedFavorites):
+                self.favorites = savedFavorites
+            case .failure(let error):
+                self.presentSSAlertOnMainThread(alertTitle: "Failed to load favorites", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
     }
 }
