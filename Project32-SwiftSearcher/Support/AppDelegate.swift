@@ -78,6 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  > it's cause you had not yet called its config method in either the VDL or the VWAppear (either of which will work but now I prefer the VDL to keep it out of the logolauncher
  --------------------------
  * commitEditingStyle not responding to invocation of the insert button being tapped in edit mode. Why?
+ > maybe it's becuase I'm using a Diffable datasource - this may not trigger the 'commitEditingStyle' method like a traditional data source would
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------

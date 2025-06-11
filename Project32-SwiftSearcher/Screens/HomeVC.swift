@@ -236,6 +236,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     // WHEN IS THIS BEING CALLED
+    #warning("look into diff datasource cell deletion alternatives - diffDS may not trigger commit editingStyle")
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         print("commit called")
