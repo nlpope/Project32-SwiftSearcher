@@ -18,92 +18,6 @@
             endingLineNumber = "19"
             landmarkName = "favorites"
             landmarkType = "24">
-            <Locations>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 2756cadcc06e7397"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.getter : Swift.Bool"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 87cba4a48bbb5b9b"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.setter : Swift.Bool"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 7d99c1d4c0ce558a"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.modify : Swift.Bool"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - de049383b0974a51"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.init(style: __C.UITableViewStyle) -&gt; Project32_SwiftSearcher.HomeVC"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 1e018840c72bef33"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Project32_SwiftSearcher.HomeVC"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-               <Location
-                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 2239b88a28703f3c"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Project32_SwiftSearcher.HomeVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Project32_SwiftSearcher.HomeVC&gt;"
-                  moduleName = "Project32-SwiftSearcher.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/noahpope/Developer/ios%20&amp;%20swift/Paul%20Hudson/Project32-SwiftSearcher/Project32-SwiftSearcher/Screens/HomeVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -133,25 +47,9 @@
             filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "tableView(_:commit:forRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4B3B101F-23C8-4E77-9EE2-914063DD0EFD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
-            landmarkName = "updateFavorites(with:actionType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

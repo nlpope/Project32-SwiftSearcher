@@ -185,29 +185,28 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     
     @objc func toggleEditMode() { editModeOn.toggle() }
     
-    // editSaveAndUpdate
-    func updateFavorites(with favorite: SSProject, actionType: PersistenceActionType)
+    
+    func updateFavorites(with project: SSProject, actionType: PersistenceActionType)
     {
+        print("update favs accessed")
         switch actionType {
         case .add:
-            PersistenceManager.updateFavorites(with: favorite, actionType: .add) { [weak self] error in
+            favorites.append(project)
+            PersistenceManager.updateFavorites(with: project, actionType: .add) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle,
-                                               msg: AlertKeys.saveSuccessMsg,
-                                               btnTitle: "Ok")
+                    presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
                     return
                 }
                 self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
             }
             
         case .remove:
-            PersistenceManager.updateFavorites(with: favorite, actionType: .remove) { [weak self] error in
+            favorites.removeAll { $0.title == project.title }
+            PersistenceManager.updateFavorites(with: project, actionType: .remove) { [weak self] error in
                 guard let self = self else { return }
                 guard let error = error else {
-                    presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle,
-                                               msg: AlertKeys.removeSuccessMsg,
-                                               btnTitle: "Ok")
+                    presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
                     return
                 }
                 self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
@@ -234,14 +233,13 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         else { return .insert }
     }
     
-    
+    // WHEN IS THIS BEING CALLED
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         let currentProject = projects[indexPath.row]
-//        if editingStyle == .insert { favorites.append(currentProject) }
         if editingStyle == .insert { updateFavorites(with: currentProject, actionType: .add) }
-//        else { favorites.removeAll { $0.title == currentProject.title } }
         else { updateFavorites(with: currentProject, actionType: .remove) }
+        print(favorites)
         updateDataSource(with: projects)
     }
     
