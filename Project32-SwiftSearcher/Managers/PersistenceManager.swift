@@ -13,7 +13,7 @@ enum PersistenceManager
 {
     static private let defaults = UserDefaults.standard
     static var isFirstVisitStatus: Bool! = fetchFirstVisitStatus() {
-        didSet { PersistenceManager.saveFirstVisitStatus(status: self.isFirstVisitStatus) }
+        didSet { PersistenceManager.saveFirstVisitStatus(status: isFirstVisitStatus) }
     }
     
     //-------------------------------------//

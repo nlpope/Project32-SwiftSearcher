@@ -6,10 +6,10 @@ import UIKit
 
 extension UIViewController
 {
-    func presentSSAlertOnMainThread(alertTitle: String, message: String, buttonTitle: String) {
+    func presentSSAlertOnMainThread(title: String, msg: String, btnTitle: String) {
         DispatchQueue.main.async {
-            let ac = UIAlertController(title: alertTitle, message: message, preferredStyle: .alert)
-            let action1 = UIAlertAction(title: buttonTitle, style: .default)
+            let ac = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+            let action1 = UIAlertAction(title: btnTitle, style: .default)
             ac.modalPresentationStyle = .overFullScreen
             ac.modalTransitionStyle = .crossDissolve
             ac.addAction(action1)

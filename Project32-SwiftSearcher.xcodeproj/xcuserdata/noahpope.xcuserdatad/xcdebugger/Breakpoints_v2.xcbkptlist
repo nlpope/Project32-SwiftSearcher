@@ -7,39 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D1F6286A-B1A0-4950-A89E-7E986E231593"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "79D7CB1C-1144-4C13-B270-AE15FA619DC3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "HomeVC"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8"
+            uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -48,12 +16,12 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "19"
             endingLineNumber = "19"
-            landmarkName = "editModeOn"
+            landmarkName = "favorites"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - 2756cadcc06e7397"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 2756cadcc06e7397"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.getter : Swift.Bool"
@@ -66,8 +34,8 @@
                   endingLineNumber = "0">
                </Location>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - 87cba4a48bbb5b9b"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 87cba4a48bbb5b9b"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.setter : Swift.Bool"
@@ -80,8 +48,8 @@
                   endingLineNumber = "0">
                </Location>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - 7d99c1d4c0ce558a"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 7d99c1d4c0ce558a"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.editModeOn.modify : Swift.Bool"
@@ -94,8 +62,8 @@
                   endingLineNumber = "0">
                </Location>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - de049383b0974a51"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - de049383b0974a51"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.init(style: __C.UITableViewStyle) -&gt; Project32_SwiftSearcher.HomeVC"
@@ -108,8 +76,8 @@
                   endingLineNumber = "19">
                </Location>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - 1e018840c72bef33"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 1e018840c72bef33"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Project32_SwiftSearcher.HomeVC"
@@ -122,8 +90,8 @@
                   endingLineNumber = "19">
                </Location>
                <Location
-                  uuid = "7BB6670F-97F3-4BF8-B449-6DCE42F382E8 - 2239b88a28703f3c"
-                  shouldBeEnabled = "Yes"
+                  uuid = "8E8B7733-61BC-4FE2-BCEF-9B3545D2B823 - 2239b88a28703f3c"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "Project32_SwiftSearcher.HomeVC.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Project32_SwiftSearcher.HomeVC&gt;"
@@ -136,6 +104,55 @@
                   endingLineNumber = "19">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "187E3F0D-5379-438B-BCD3-0CC181E1DCF5"
+            shouldBeEnabled = "No"
+            nameForDebugger = "changedFrom&quot;self.isFirstVisistStatus&quot;"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project32-SwiftSearcher/Managers/PersistenceManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "isFirstVisitStatus"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F489385-ACBB-4EB1-A1D8-BAF46401FC26"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "tableView(_:commit:forRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B3B101F-23C8-4E77-9EE2-914063DD0EFD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "updateFavorites(with:actionType:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

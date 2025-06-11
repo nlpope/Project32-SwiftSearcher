@@ -15,7 +15,9 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
     var isSearching = false
-    var favorites = [SSProject]()
+    var favorites = [SSProject]() {
+        didSet { PersistenceManager.save(favorites: favorites) }
+    }
     var editModeOn = false {
         didSet {
             tableView.isEditing = editModeOn ? true : false
@@ -90,10 +92,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     
-    func configTableView()
-    {
-        tableView.allowsSelectionDuringEditing = true
-    }
+    func configTableView() { tableView.allowsSelectionDuringEditing = true }
     
     
     func configDiffableDataSource()
@@ -148,7 +147,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
                 self.projects = projects; self.updateDataSource(with: projects)
             /**--------------------------------------------------------------------------**/
             case .failure(let error):
-                self.presentSSAlertOnMainThread(alertTitle: "Fetch Fail", message: error.rawValue, buttonTitle: "Ok")
+                self.presentSSAlertOnMainThread(title: "Fetch Fail", msg: error.rawValue, btnTitle: "Ok")
             }
         }
     }
@@ -186,16 +185,34 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     
     @objc func toggleEditMode() { editModeOn.toggle() }
     
-    //-------------------------------------//
-    // MARK: - DIFFABLE DATASOURCE UPDATES
-    
-    func updateDataSource(with projects: [SSProject])
+    // editSaveAndUpdate
+    func updateFavorites(with favorite: SSProject, actionType: PersistenceActionType)
     {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, SSProject>()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(projects)
-        
-        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
+        switch actionType {
+        case .add:
+            PersistenceManager.updateFavorites(with: favorite, actionType: .add) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle,
+                                               msg: AlertKeys.saveSuccessMsg,
+                                               btnTitle: "Ok")
+                    return
+                }
+                self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
+            }
+            
+        case .remove:
+            PersistenceManager.updateFavorites(with: favorite, actionType: .remove) { [weak self] error in
+                guard let self = self else { return }
+                guard let error = error else {
+                    presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle,
+                                               msg: AlertKeys.removeSuccessMsg,
+                                               btnTitle: "Ok")
+                    return
+                }
+                self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
+            }
+        }
     }
     
     //-------------------------------------//
@@ -209,7 +226,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     
-    // contin. from configDiffableDataSource > cell.editingAccessoryType
+    // contin.'d from configDiffableDataSource > cell.editingAccessoryType
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
     {
         let currentProject = projects[indexPath.row]
@@ -221,8 +238,23 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         let currentProject = projects[indexPath.row]
-        if editingStyle == .insert { favorites.append(currentProject) }
-        else { favorites.removeAll { $0.title == currentProject.title } }
+//        if editingStyle == .insert { favorites.append(currentProject) }
+        if editingStyle == .insert { updateFavorites(with: currentProject, actionType: .add) }
+//        else { favorites.removeAll { $0.title == currentProject.title } }
+        else { updateFavorites(with: currentProject, actionType: .remove) }
+        updateDataSource(with: projects)
+    }
+    
+    //-------------------------------------//
+    // MARK: - DIFFABLE DATASOURCE UPDATES
+    
+    func updateDataSource(with projects: [SSProject])
+    {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, SSProject>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(projects)
+        
+        DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
     
     //-------------------------------------//
@@ -249,7 +281,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             case .success(let savedFavorites):
                 self.favorites = savedFavorites
             case .failure(let error):
-                self.presentSSAlertOnMainThread(alertTitle: "Failed to load favorites", message: error.rawValue, buttonTitle: "Ok")
+                self.presentSSAlertOnMainThread(title: "Failed to load favorites", msg: error.rawValue, btnTitle: "Ok")
             }
         }
     }
