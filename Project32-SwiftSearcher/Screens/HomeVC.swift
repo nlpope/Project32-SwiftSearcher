@@ -17,7 +17,11 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var isSearching = false
     var favorites = [SSProject]()
     var editModeOn = false {
-        didSet { tableView.isEditing = editModeOn ? true : false }
+        didSet {
+            tableView.isEditing = editModeOn ? true : false
+            updateDataSource(with: projects)
+            configNavigation()
+        }
     }
     
     var logoLauncher: SSLogoLauncher!
@@ -38,6 +42,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     override func viewWillAppear(_ animated: Bool)
     {
         logoLauncher = SSLogoLauncher(targetVC: self)
+        editModeOn = false
         if PersistenceManager.fetchFirstVisitStatus() { logoLauncher.configLogoLauncher() }
         else { fetchProjects(); fetchFavorites() }
     }
@@ -179,12 +184,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     //-------------------------------------//
     // MARK: - EDIT MODE (ADD/REMOVE FAVORITES)
     
-    @objc func toggleEditMode()
-    {
-        editModeOn.toggle()
-        updateDataSource(with: projects)
-        configNavigation()
-    }
+    @objc func toggleEditMode() { editModeOn.toggle() }
     
     //-------------------------------------//
     // MARK: - DIFFABLE DATASOURCE UPDATES
@@ -199,7 +199,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
-    // MARK: - TABLEVIEW DELEGATE
+    // MARK: - TABLEVIEW DELEGATE METHODS
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
@@ -215,6 +215,14 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         let currentProject = projects[indexPath.row]
         if favorites.contains(currentProject) { return .delete }
         else { return .insert }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        let currentProject = projects[indexPath.row]
+        if editingStyle == .insert { favorites.append(currentProject) }
+        else { favorites.removeAll { $0.title == currentProject.title } }
     }
     
     //-------------------------------------//
