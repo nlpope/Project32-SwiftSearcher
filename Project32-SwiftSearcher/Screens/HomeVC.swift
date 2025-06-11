@@ -100,16 +100,12 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             let cellSubtitle = project.subtitle == "" ? "" : project.subtitle
             let cellSkillList = project.skills == "" ? "" : project.skills
                         
-            if self.favorites.contains(project) {
-                cell.editingAccessoryType = .checkmark
-//                cell.editingStyle = .delete
-            }
-            else {
-                cell.editingAccessoryType = .none
-//                cell.editingStyle = .insert
-            }
+            // contin. @ tableView delegate sect > tableView(_:editingStyleForRowAt:)
+            if self.favorites.contains(project) { cell.editingAccessoryType = .checkmark }
+            else { cell.editingAccessoryType = .none }
             
             cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
+            
             return cell
         }
     }
@@ -213,13 +209,13 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     
-//    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
-//    {
-//        for project in projects {
-//            if favorites.contains(project) { return .delete }
-//            else { return .insert }
-//        }
-//    }
+    // contin. from configDiffableDataSource > cell.editingAccessoryType
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
+    {
+        let currentProject = projects[indexPath.row]
+        if favorites.contains(currentProject) { return .delete }
+        else { return .insert }
+    }
     
     //-------------------------------------//
     // MARK: - SAFARI PRESENTATION METHODS
