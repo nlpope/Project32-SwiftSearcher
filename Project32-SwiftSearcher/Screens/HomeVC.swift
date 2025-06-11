@@ -21,6 +21,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     var editModeOn = false {
         didSet {
             tableView.isEditing = editModeOn ? true : false
+//            tableView.setEditing(true, animated: true)
             updateDataSource(with: projects)
             configNavigation()
         }
@@ -33,7 +34,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = true
+        PersistenceManager.isFirstVisitStatus = false
         configNavigation()
         configSearchController()
         configTableView()
@@ -228,6 +229,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     // contin.'d from configDiffableDataSource > cell.editingAccessoryType
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
     {
+        print("inside editingstyleforrowat")
         let currentProject = projects[indexPath.row]
         if favorites.contains(currentProject) { return .delete }
         else { return .insert }
@@ -236,11 +238,18 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     // WHEN IS THIS BEING CALLED
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
+        print("commit called")
         let currentProject = projects[indexPath.row]
         if editingStyle == .insert { updateFavorites(with: currentProject, actionType: .add) }
         else { updateFavorites(with: currentProject, actionType: .remove) }
         print(favorites)
+        
         updateDataSource(with: projects)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
     
     //-------------------------------------//
