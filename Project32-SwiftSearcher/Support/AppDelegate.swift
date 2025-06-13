@@ -80,6 +80,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  * commitEditingStyle not responding to invocation of the insert button being tapped in edit mode. Why?
  > maybe it's becuase I'm using a Diffable datasource - this may not trigger the 'commitEditingStyle' method like a traditional data source would
  --------------------------
+ * committal of editing style in HomeVC was not firing
+ > I needed to subclass UITableViewDiffableDataSource & override the commit function after setting up a delegate of type 'HomeVC'
+ > I needed to include both the 'canEdit..' and 'commit' methods in this custom class
+ class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
+ --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  TECHNOLOGIES USED / LEARNED:
@@ -101,6 +106,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  --------------------------
  REFERENCES & CREDITS:
  * KeychainOptions.swift & SwiftKeychainWrapper by MIT's James Blair on 4/24/16.
+ * Commital non-fires solution
+ > https://stackoverflow.com/questions/57898044/unable-to-swipe-to-delete-with-tableview-using-diffable-data-source-in-ios-13
  * API creation via google sheets
  > YT: https://dev.to/varshithvhegde/easy-way-to-create-your-own-api-for-free-1mbc
  * Solve for keyboard blocking textfield (by SwiftArcade)

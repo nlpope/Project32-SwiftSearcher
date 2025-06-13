@@ -7,24 +7,40 @@ import AVKit
 import AVFoundation
 import SafariServices
 
+enum Section { case main }
+
+class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
+{
+    weak var delegate: HomeVC!
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
+    { return true }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
+    {
+        let currentProject = delegate.projects[indexPath.row]
+        if editingStyle == .insert {
+            delegate.updateFavorites(with: currentProject, actionType: .add)
+            tableView.cellForRow(at: indexPath)?.editingAccessoryType = .checkmark
+        }
+        else {
+            delegate.updateFavorites(with: currentProject, actionType: .remove)
+            tableView.cellForRow(at: indexPath)?.editingAccessoryType = .none
+        }
+    }
+}
+
+
 class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
 {
-    enum Section { case main }
-    
-    var dataSource: UITableViewDiffableDataSource<Section, SSProject>!
+    var dataSource: SSTableViewDiffableDataSource!
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
     var isSearching = false
-    var favorites = [SSProject]() {
-        didSet { PersistenceManager.save(favorites: favorites) }
-    }
+    var favorites = [SSProject]() 
     var editModeOn = false {
-        didSet {
-            tableView.isEditing = editModeOn ? true : false
-//            tableView.setEditing(true, animated: true)
-            updateDataSource(with: projects)
-            configNavigation()
-        }
+        didSet { tableView.isEditing = editModeOn ? true : false; configNavigation() }
     }
     
     var logoLauncher: SSLogoLauncher!
@@ -37,8 +53,8 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         PersistenceManager.isFirstVisitStatus = false
         configNavigation()
         configSearchController()
-        configTableView()
         configDiffableDataSource()
+        configTableView()
     }
     
     
@@ -67,7 +83,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         
         let editItem = UIBarButtonItem(barButtonSystemItem: editModeOn ? .done : .edit, target: self, action: #selector(toggleEditMode))
         
-        navigationItem.rightBarButtonItem = editItem        
+        navigationItem.rightBarButtonItem = editItem
     }
     
     
@@ -84,12 +100,17 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     
-    func configTableView() { tableView.allowsSelectionDuringEditing = true }
+    func configTableView()
+    {
+        tableView.allowsSelectionDuringEditing = false
+        dataSource.delegate = self
+    }
     
-    
+
+    // update snapshot, never set up more than once outside of VDL (manual warns against it)
     func configDiffableDataSource()
     {
-        dataSource = UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
+        dataSource = SSTableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
             let cell = tableView.dequeueReusableCell(withIdentifier: "SSCell", for: indexPath)
             
             let cellTitle = project.title == "" ? "Untitled" : "Project \(project.index) \(project.title)"
@@ -97,8 +118,13 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             let cellSkillList = project.skills == "" ? "" : project.skills
                         
             // contin. @ tableView delegate sect > tableView(_:editingStyleForRowAt:)
-            if self.favorites.contains(project) { cell.editingAccessoryType = .checkmark }
-            else { cell.editingAccessoryType = .none }
+            if self.favorites.contains(project) {
+                cell.editingAccessoryType = .checkmark
+                cell.accessoryType = .checkmark
+            } else {
+                cell.editingAccessoryType = .none
+                cell.accessoryType = .none
+            }
             
             cell.textLabel?.attributedText = self.makeAttributedString(title: cellTitle, subtitle: cellSubtitle, skills: cellSkillList)
             
@@ -180,7 +206,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     
     func updateFavorites(with project: SSProject, actionType: PersistenceActionType)
     {
-        print("update favs accessed")
         switch actionType {
         case .add:
             favorites.append(project)
@@ -188,6 +213,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
                 guard let self = self else { return }
                 guard let error = error else {
                     presentSSAlertOnMainThread(title: AlertKeys.saveSuccessTitle, msg: AlertKeys.saveSuccessMsg, btnTitle: "Ok")
+                    updateDataSource(with: projects)
                     return
                 }
                 self.presentSSAlertOnMainThread(title: "Failed to favorite", msg: error.rawValue, btnTitle: "Ok")
@@ -199,6 +225,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
                 guard let self = self else { return }
                 guard let error = error else {
                     presentSSAlertOnMainThread(title: AlertKeys.removeSuccessTitle, msg: AlertKeys.removeSuccessMsg, btnTitle: "Ok")
+                    updateDataSource(with: projects)
                     return
                 }
                 self.presentSSAlertOnMainThread(title: "Failed to remove favorite", msg: error.rawValue, btnTitle: "Ok")
@@ -216,36 +243,20 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         showTutorial(activeArray[indexPath.row].index)
     }
     
-    
+
     // contin.'d from configDiffableDataSource > cell.editingAccessoryType
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle
     {
-        print("inside editingstyleforrowat")
         let currentProject = projects[indexPath.row]
         if favorites.contains(currentProject) { return .delete }
         else { return .insert }
     }
     
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
-    {
-        print("commit called")
-        let currentProject = projects[indexPath.row]
-        if editingStyle == .insert { updateFavorites(with: currentProject, actionType: .add) }
-        else { updateFavorites(with: currentProject, actionType: .remove) }
-        print(favorites)
-        
-        updateDataSource(with: projects)
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     //-------------------------------------//
     // MARK: - DIFFABLE DATASOURCE UPDATES
     
+    // THIS WILL RELOAD THE CELL
     func updateDataSource(with projects: [SSProject])
     {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SSProject>()

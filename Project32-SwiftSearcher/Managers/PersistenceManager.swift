@@ -70,7 +70,7 @@ enum PersistenceManager
     {
         switch action {
         case .add:
-            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
+//            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
             projects.append(project)
         /**--------------------------------------------------------------------------**/
         case .remove:
