@@ -14,10 +14,10 @@
             filePath = "Project32-SwiftSearcher/Screens/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "updateFavorites(with:actionType:)"
-            landmarkType = "7">
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "HomeVC"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

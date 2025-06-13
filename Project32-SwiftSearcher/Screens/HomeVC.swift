@@ -9,36 +9,13 @@ import SafariServices
 
 enum Section { case main }
 
-class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
-{
-    weak var delegate: HomeVC!
-    
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
-    { return true }
-    
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
-    {
-        let currentProject = delegate.projects[indexPath.row]
-        if editingStyle == .insert {
-            delegate.updateFavorites(with: currentProject, actionType: .add)
-            tableView.cellForRow(at: indexPath)?.editingAccessoryType = .checkmark
-        }
-        else {
-            delegate.updateFavorites(with: currentProject, actionType: .remove)
-            tableView.cellForRow(at: indexPath)?.editingAccessoryType = .none
-        }
-    }
-}
-
-
 class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
 {
     var dataSource: SSTableViewDiffableDataSource!
     var projects = [SSProject]()
     var filteredProjects = [SSProject]()
     var isSearching = false
-    var favorites = [SSProject]() 
+    var favorites = [SSProject]()
     var editModeOn = false {
         didSet { tableView.isEditing = editModeOn ? true : false; configNavigation() }
     }

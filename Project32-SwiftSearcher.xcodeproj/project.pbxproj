@@ -26,6 +26,7 @@
 		4095831A2DEFC3C70057A642 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409583102DEFC3C70057A642 /* HomeVC.swift */; };
 		40B5EE8C2DF1120C00BDE01E /* AVPlayer+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B5EE8B2DF1120C00BDE01E /* AVPlayer+Ext.swift */; };
 		40B94C972DF4ABE500C4DD6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40B94C962DF4ABE500C4DD6A /* LaunchScreen.storyboard */; };
+		40EEEAE62DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EEEAE52DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift */; };
 		40F12A452DF4925800527975 /* SSDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F12A442DF4925800527975 /* SSDataLoadingVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		409583122DEFC3C70057A642 /* Project32_SwiftSearcher.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Project32_SwiftSearcher.xcdatamodel; sourceTree = "<group>"; };
 		40B5EE8B2DF1120C00BDE01E /* AVPlayer+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Ext.swift"; sourceTree = "<group>"; };
 		40B94C962DF4ABE500C4DD6A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		40EEEAE52DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSTableViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		40F12A442DF4925800527975 /* SSDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDataLoadingVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +126,7 @@
 			children = (
 				407B54332DEFCBFB00109BAE /* PersistenceManager.swift */,
 				401A0A542DF347B900B02B6C /* NetworkManager.swift */,
+				40EEEAE52DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				401A0A532DF346B100B02B6C /* UIResponder+Ext.swift in Sources */,
 				407B544B2DF001B200109BAE /* KeychainWrapper.swift in Sources */,
 				407B544C2DF001B200109BAE /* KeychainItemAccessibility.swift in Sources */,
+				40EEEAE62DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift in Sources */,
 				40F12A452DF4925800527975 /* SSDataLoadingVC.swift in Sources */,
 				407B543D2DEFE1A400109BAE /* UIViewController+Ext.swift in Sources */,
 				40B5EE8C2DF1120C00BDE01E /* AVPlayer+Ext.swift in Sources */,
