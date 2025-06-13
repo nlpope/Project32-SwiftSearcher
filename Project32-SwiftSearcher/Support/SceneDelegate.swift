@@ -3,6 +3,8 @@
 //  Created by: Noah Pope on 6/3/25.
 
 import UIKit
+import CoreSpotlight
+
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -13,6 +15,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+//        func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool
+//        {
+//            if userActivity.activityType == CSSearchableItemActionType {
+//                if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+//                    if let navigationController = window?.rootViewController as? UINavigationController {
+//                        if let homeVC = navigationController.topViewController as? HomeVC {
+//                            print("scenedelegate spotlight activated!!!")
+//                            homeVC.showTutorial(Int(uniqueIdentifier)!)
+//                        }
+//                    }
+//                }
+//            }
+//            
+//            return true
+//        }
+
         guard let _ = (scene as? UIWindowScene) else { return }
     }
 
@@ -48,6 +66,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool
+    {
+        print("scenedelegate spotlight activated!!!")
 
+        if userActivity.activityType == CSSearchableItemActionType {
+            if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+                if let navigationController = window?.rootViewController as? UINavigationController {
+                    if let homeVC = navigationController.topViewController as? HomeVC {
+                        homeVC.showTutorial(Int(uniqueIdentifier)!)
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
 }
 

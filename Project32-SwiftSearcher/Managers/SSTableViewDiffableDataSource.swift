@@ -21,10 +21,12 @@ class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSPr
         if editingStyle == .insert {
             delegate.updateFavorites(with: currentProject, actionType: .add)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .checkmark
+            delegate.index(project: currentProject)
         }
         else {
             delegate.updateFavorites(with: currentProject, actionType: .remove)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .none
+            delegate.deindex(item: currentProject)
         }
     }
 }

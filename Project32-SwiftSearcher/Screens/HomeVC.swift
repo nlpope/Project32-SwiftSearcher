@@ -6,6 +6,8 @@ import UIKit
 import AVKit
 import AVFoundation
 import SafariServices
+import CoreSpotlight
+import MobileCoreServices
 
 enum Section { case main }
 
@@ -128,7 +130,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
-    // MARK: - NETWORK CALLS
+    // MARK: - FETCHING (NETWORK & PERSISTENCE MANAGER CALLS)
     
     func fetchProjects()
     {
@@ -143,6 +145,19 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             /**--------------------------------------------------------------------------**/
             case .failure(let error):
                 self.presentSSAlertOnMainThread(title: "Fetch Fail", msg: error.rawValue, btnTitle: "Ok")
+            }
+        }
+    }
+    
+    
+    func fetchFavorites()
+    {
+        PersistenceManager.fetchFavorites { result in
+            switch result {
+            case .success(let savedFavorites):
+                self.favorites = savedFavorites
+            case .failure(let error):
+                self.presentSSAlertOnMainThread(title: "Failed to load favorites", msg: error.rawValue, btnTitle: "Ok")
             }
         }
     }
@@ -246,6 +261,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     
     func showTutorial(_ which: Int)
     {
+        print("show tutorial accessed")
         if let url = URL(string: "\(URLKeys.baseURL)\(which)") {
             let config = SFSafariViewController.Configuration()
             config.entersReaderIfAvailable = true
@@ -256,17 +272,31 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
-    // MARK: - SAVE / FETCH
+    // MARK: - INDEXING (ENABLES SPOTLIGHT SEARCHING)
     
-    func fetchFavorites()
+    func index(project: SSProject)
     {
-        PersistenceManager.fetchFavorites { result in
-            switch result {
-            case .success(let savedFavorites):
-                self.favorites = savedFavorites
-            case .failure(let error):
-                self.presentSSAlertOnMainThread(title: "Failed to load favorites", msg: error.rawValue, btnTitle: "Ok")
-            }
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: UTType.text.description as String)
+        attributeSet.title = project.title
+        attributeSet.contentDescription = project.subtitle
+        
+        let item = CSSearchableItem(uniqueIdentifier: "\(project.index)",
+                                    domainIdentifier: "com.hackingwithswift",
+                                    attributeSet: attributeSet)
+        item.expirationDate = Date.distantFuture
+        
+        CSSearchableIndex.default().indexSearchableItems([item]) { error in
+            if let error = error { print("Indexing error: \(error)") }
+            else { print("Search item successfully indexed!") }
+        }
+    }
+    
+    
+    func deindex(item: SSProject)
+    {
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: ["\(item.index)"]) { error in
+            if let error = error { print("Deindexing error: \(error)") }
+            else { print("Search item successfully removed!") }
         }
     }
 }
