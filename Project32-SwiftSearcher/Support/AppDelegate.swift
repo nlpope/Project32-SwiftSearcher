@@ -82,7 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  --------------------------
  * committal of editing style in HomeVC was not firing
  > I needed to subclass UITableViewDiffableDataSource & override the commit function after setting up a delegate of type 'HomeVC'
- > I needed to include both the 'canEdit..' and 'commit' methods in this custom class (see HomeVC for full implementation up top)
+ > I needed to include both the 'canEdit..' and 'commit' methods in this custom class (see Managers > SSTableViewDiffableDataSource)
  class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
