@@ -65,18 +65,9 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         title = "Projects"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        if editModeOn {
-            let editItem = UIBarButtonItem(barButtonSystemItem: .done,
-                                           target: self,
-                                           action: #selector(toggleEditMode))
-            navigationItem.rightBarButtonItem = editItem
-        } else {
-            let editItem = UIBarButtonItem(barButtonSystemItem: .edit,
-                                           target: self,
-                                           action: #selector(toggleEditMode))
-            navigationItem.rightBarButtonItem = editItem
-        }
+        let editItem = UIBarButtonItem(barButtonSystemItem: editModeOn ? .done : .edit, target: self, action: #selector(toggleEditMode))
         
+        navigationItem.rightBarButtonItem = editItem        
     }
     
     
@@ -235,8 +226,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         else { return .insert }
     }
     
-    // WHEN IS THIS BEING CALLED
-    #warning("look into diff datasource cell deletion alternatives - diffDS may not trigger commit editingStyle")
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath)
     {
         print("commit called")
