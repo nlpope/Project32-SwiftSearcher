@@ -211,7 +211,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     //-------------------------------------//
-    // MARK: - TABLEVIEW DELEGATE METHODS
+    // MARK: - TABLEVIEW DELEGATE METHODS 1/2
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
@@ -229,11 +229,9 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         else { return .insert }
     }
     
-    
     //-------------------------------------//
     // MARK: - DIFFABLE DATASOURCE UPDATES
     
-    // THIS WILL RELOAD THE CELL
     func updateDataSource(with projects: [SSProject])
     {
         var snapshot = NSDiffableDataSourceSnapshot<Section, SSProject>()

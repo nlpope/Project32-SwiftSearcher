@@ -8,6 +8,9 @@ class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSPr
 {
     weak var delegate: HomeVC!
     
+    //-------------------------------------//
+    // MARK: - TABLEVIEW DELEGATE METHODS 2/2
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
     { return true }
     
