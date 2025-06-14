@@ -170,6 +170,7 @@ class SSLogoLauncher
     
         // KEEP ALL CONFIG CALLS IN THE VDL (IN ONE PLACE) IF POSSIBLE SO ITS NOT NEEDED IN HERE AND THE VDAppear
         targetVC.fetchProjects()
+        targetVC.fetchFavorites()
     }
     
     

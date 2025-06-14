@@ -27,7 +27,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        PersistenceManager.isFirstVisitStatus = false
+        PersistenceManager.isFirstVisitStatus = true
         configNavigation()
         configSearchController()
         configDiffableDataSource()
@@ -84,7 +84,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
 
-    // update snapshot, never set up more than once outside of VDL (manual warns against it)
     func configDiffableDataSource()
     {
         dataSource = SSTableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, project in
