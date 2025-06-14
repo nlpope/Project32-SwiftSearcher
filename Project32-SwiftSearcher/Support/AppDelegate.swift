@@ -4,11 +4,14 @@
 
 import UIKit
 import CoreData
+import CoreSpotlight
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { return true }
+    var window: UIWindow?
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool { print("didfinishlaunch triggered"); return true }
 
     // MARK: UISceneSession Lifecycle
 
@@ -43,6 +46,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             }
         }
     }
+    
+    
+//    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool
+//    {
+//        print("scenedelegate spotlight activated!!!")
+//
+//        if userActivity.activityType == CSSearchableItemActionType {
+//            if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+//                if let navigationController = window?.rootViewController as? UINavigationController {
+//                    if let homeVC = navigationController.topViewController as? HomeVC {
+//                        homeVC.showTutorial(Int(uniqueIdentifier)!)
+//                    }
+//                }
+//            }
+//        }
+//        
+//        return true
+//    }
 }
 
 //-------------------------------------//

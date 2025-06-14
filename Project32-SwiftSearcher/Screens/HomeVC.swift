@@ -32,7 +32,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         configSearchController()
         configDiffableDataSource()
         configTableView()
-//        NotificationCenter.default.addObserver(self, selector: #selector(showTutorial), name: UIScene.will, object: nil)
     }
     
     
