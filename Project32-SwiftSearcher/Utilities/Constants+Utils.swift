@@ -24,7 +24,7 @@ enum APIKeys
 enum AlertKeys
 {
     static let saveSuccessTitle = "Added to favorites 🥳"
-    static let saveSuccessMsg = "Successfully added to your favorites list. This is will be denoted by a checkmark next to the project"
+    static let saveSuccessMsg = "Successfully added to your favorites list. This is will be denoted by a checkmark next to the project. It is now searchable via your iPhone's Spotlight feature - enter this project's title and you will be taken to HackingWithSwift's web tutorial link."
     
     static let removeSuccessTitle = "Removed from favorites"
     static let removeSuccessMsg = "This project was successfully removed from your favorites."

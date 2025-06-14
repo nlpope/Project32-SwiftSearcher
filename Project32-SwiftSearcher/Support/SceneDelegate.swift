@@ -12,12 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions)
-    {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
+    { guard let _ = (scene as? UIWindowScene) else { return } }
 
     
     func sceneDidDisconnect(_ scene: UIScene) {}
@@ -36,27 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     { (UIApplication.shared.delegate as? AppDelegate)?.saveContext() }
     
     
-    func scene(_ scene: UIScene, willContinueUserActivityWithType userActivityType: String) {
-        print("useractivity")
-        print("userActivityType = \(userActivityType)")
-        if userActivity?.activityType == CSSearchableItemActionType {
-            print("1st pass")
-            if let uniqueIdentifier = userActivity?.userInfo?[CSSearchableItemActivityIdentifier] as? String {
-                if let navigationController = window?.rootViewController as? UINavigationController {
-                    if let homeVC = navigationController.topViewController as? HomeVC {
-                        print("made it to showTutorial trigger")
-                        homeVC.showTutorial(Int(uniqueIdentifier)!)
-                    }
-                }
-            }
-        }
-    }
-    
-    
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool
-    {
-        print("scenedelegate spotlight activated!!!")
-
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         if userActivity.activityType == CSSearchableItemActionType {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
                 if let navigationController = window?.rootViewController as? UINavigationController {
@@ -66,7 +41,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
                 }
             }
         }
-        
-        return true
     }
 }

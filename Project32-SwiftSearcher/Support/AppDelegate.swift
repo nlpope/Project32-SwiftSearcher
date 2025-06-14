@@ -46,24 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             }
         }
     }
-    
-    
-//    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([any UIUserActivityRestoring]?) -> Void) -> Bool
-//    {
-//        print("scenedelegate spotlight activated!!!")
-//
-//        if userActivity.activityType == CSSearchableItemActionType {
-//            if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
-//                if let navigationController = window?.rootViewController as? UINavigationController {
-//                    if let homeVC = navigationController.topViewController as? HomeVC {
-//                        homeVC.showTutorial(Int(uniqueIdentifier)!)
-//                    }
-//                }
-//            }
-//        }
-//        
-//        return true
-//    }
 }
 
 //-------------------------------------//
@@ -105,6 +87,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  > I needed to include both the 'canEdit..' and 'commit' methods in this custom class (see Managers > SSTableViewDiffableDataSource)
  class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
  --------------------------
+ * Could not trigger the below app delegate method:
+ 
+ func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+ 
+ * ... so moved it to scene delegate with still no luck
+ * ... then I tried to using the scene delegate's version of this method which would trigger, but would not give me access to the NSUserActivity type
+ 
+ scene(_:willContinueUserActivityWithType:)
+ 
+ > I finally was successful after implementing a scene delegate method not made obvious in the documentation but was listed as a related topic to the above func
+ 
+ func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+
+ > ... from there I was able to grab hold of the NSUserActivity item indexed in my dataSource and navigate to it's link no problem
+ --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
  TECHNOLOGIES USED / LEARNED:
@@ -126,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  > .. Allowing me to fetch the projects from a consistent source without having to create, store, update the datasource then save to the persistence manager every load for values that will never differ.
  🎺 For the API call needing a bit of time before the user sees anything, I've converted the normal tableView into a custom DataLoadingViewController to show progress
  🎺 Added a search feature using a diffable datasource, requiring me to make the SSProject model both hashable and codable
+ 🎺 Implemented  scene delegate's scene(_ scene: UIScene, continue userActivity: NSUserActivity) to obtain and use my indexed item's info to navigate to the appropriate link via Spotlight (finally - this method seems almost hidden in the documentation)
  --------------------------
  XXXXXXXXXXXXXXXXXXXXXXXX
  --------------------------
