@@ -88,7 +88,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  --------------------------
  TECHNOLOGIES USED / LEARNED:
  * Swift
- * Swift Keychain Wrapper
+ * MIT's Swift Keychain Wrapper
+ * Core Spotlight
+ * SFSafariViewController
+ * NSAttributedString
+ * Dynamic Type
+ * Automatic UITableViewCell sizing
  * Google Apps Script - converts shpreadsheets into useable APIs
  > https://script.google.com/u/0/home/projects/1EqBVWRNAnpdRemlynHLjhZceZS0REzXlzscHSMUWnabauAYBmh7-LmDP/edit
  --------------------------

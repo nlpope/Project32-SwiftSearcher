@@ -3,6 +3,8 @@
 //  Created by: Noah Pope on 6/13/25.
 
 import UIKit
+import CoreSpotlight
+import MobileCoreServices
 
 class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
 {
@@ -21,12 +23,43 @@ class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSPr
         if editingStyle == .insert {
             delegate.updateFavorites(with: currentProject, actionType: .add)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .checkmark
-            delegate.index(project: currentProject)
+            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+            index(project: currentProject)
         }
         else {
             delegate.updateFavorites(with: currentProject, actionType: .remove)
             tableView.cellForRow(at: indexPath)?.editingAccessoryType = .none
-            delegate.deindex(item: currentProject)
+            tableView.cellForRow(at: indexPath)?.accessoryType = .none
+            deindex(item: currentProject)
+        }
+    }
+    
+    //-------------------------------------//
+    // MARK: - INDEXING (ENABLES SPOTLIGHT SEARCHING)
+    
+    func index(project: SSProject)
+    {
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: UTType.text.description as String)
+        attributeSet.title = project.title
+        attributeSet.contentDescription = project.subtitle
+        
+        let item = CSSearchableItem(uniqueIdentifier: "\(project.index)",
+                                    domainIdentifier: "com.hackingwithswift",
+                                    attributeSet: attributeSet)
+        item.expirationDate = Date.distantFuture
+        
+        CSSearchableIndex.default().indexSearchableItems([item]) { error in
+            if let error = error { print("Indexing error: \(error)") }
+            else { print("Search item successfully indexed!") }
+        }
+    }
+    
+    
+    func deindex(item: SSProject)
+    {
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: ["\(item.index)"]) { error in
+            if let error = error { print("Deindexing error: \(error)") }
+            else { print("Search item successfully removed!") }
         }
     }
 }

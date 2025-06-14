@@ -6,8 +6,6 @@ import UIKit
 import AVKit
 import AVFoundation
 import SafariServices
-import CoreSpotlight
-import MobileCoreServices
 
 enum Section { case main }
 
@@ -34,6 +32,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
         configSearchController()
         configDiffableDataSource()
         configTableView()
+//        NotificationCenter.default.addObserver(self, selector: #selector(showTutorial), name: UIScene.will, object: nil)
     }
     
     
@@ -259,7 +258,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     //-------------------------------------//
     // MARK: - SAFARI PRESENTATION METHODS
     
-    func showTutorial(_ which: Int)
+    @objc func showTutorial(_ which: Int)
     {
         print("show tutorial accessed")
         if let url = URL(string: "\(URLKeys.baseURL)\(which)") {
@@ -268,35 +267,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
             
             let vc = SFSafariViewController(url: url, configuration: config)
             present(vc, animated: true)
-        }
-    }
-    
-    //-------------------------------------//
-    // MARK: - INDEXING (ENABLES SPOTLIGHT SEARCHING)
-    
-    func index(project: SSProject)
-    {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: UTType.text.description as String)
-        attributeSet.title = project.title
-        attributeSet.contentDescription = project.subtitle
-        
-        let item = CSSearchableItem(uniqueIdentifier: "\(project.index)",
-                                    domainIdentifier: "com.hackingwithswift",
-                                    attributeSet: attributeSet)
-        item.expirationDate = Date.distantFuture
-        
-        CSSearchableIndex.default().indexSearchableItems([item]) { error in
-            if let error = error { print("Indexing error: \(error)") }
-            else { print("Search item successfully indexed!") }
-        }
-    }
-    
-    
-    func deindex(item: SSProject)
-    {
-        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: ["\(item.index)"]) { error in
-            if let error = error { print("Deindexing error: \(error)") }
-            else { print("Search item successfully removed!") }
         }
     }
 }
