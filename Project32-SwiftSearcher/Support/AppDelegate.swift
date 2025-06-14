@@ -106,6 +106,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
  --------------------------
  TECHNOLOGIES USED / LEARNED:
  * Swift
+ * XCode
  * MIT's Swift Keychain Wrapper
  * Core Spotlight
  * SFSafariViewController
