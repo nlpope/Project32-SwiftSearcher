@@ -159,6 +159,15 @@ class SSLogoLauncher
     }
     
     
+    func removeNotifications()
+    {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)        
+    }
+    
+    
     @objc func playerDidFinishPlaying()
     {
         targetVC.navigationController?.isNavigationBarHidden = false
