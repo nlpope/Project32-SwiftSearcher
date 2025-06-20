@@ -4,7 +4,7 @@
 
 //  * ADD THE MP4 FLICKER LOGO FILE
 //  * ADD THE AVPLAYER+EXT FILE
-//  * BE SURE 'FORRESOURCE' NAME INS CONTANTS MATCHES LAUNCHSCREEN.MP4 FILE
+//  * BE SURE 'FORRESOURCE' NAME IN CONTANTS MATCHES LAUNCHSCREEN.MP4 FILE
 //  * (OPT) SEE IOS NOTES CLONE & MultiBrowser FOR REFERENCES
 
 /**
@@ -114,7 +114,7 @@ class SSLogoLauncher
     init(targetVC: UIViewController) { self.targetVC = targetVC as? HomeVC }
     
     
-    func configLogoLauncher( )
+    func configLogoLauncher()
     {
         maskHomeVCForIntro()
         configNotifications()
