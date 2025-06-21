@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate
     func sceneDidEnterBackground(_ scene: UIScene)
     { (UIApplication.shared.delegate as? AppDelegate)?.saveContext() }
     
-    
+    /** for executing methods/funcs via CoreSpotlight while app is not currently running */
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         if userActivity.activityType == CSSearchableItemActionType {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {

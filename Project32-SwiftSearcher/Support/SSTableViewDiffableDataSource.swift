@@ -6,6 +6,7 @@ import UIKit
 import CoreSpotlight
 import MobileCoreServices
 
+/** this subclass is here only to make the 'commit editingStyle' override method work */
 class SSTableViewDiffableDataSource: UITableViewDiffableDataSource<Section, SSProject>
 {
     weak var delegate: HomeVC!
