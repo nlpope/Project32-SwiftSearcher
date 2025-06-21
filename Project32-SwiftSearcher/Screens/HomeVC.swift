@@ -46,11 +46,7 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     override func viewWillDisappear(_ animated: Bool) { logoLauncher = nil }
     
     
-    deinit
-    {
-        logoLauncher.removeAllAVPlayerLayers()
-        logoLauncher.removeNotifications()
-    }
+    deinit { logoLauncher.removeAllAVPlayerLayers(); logoLauncher.removeNotifications() }
     
     //-------------------------------------//
     // MARK: - CONFIGURATION
