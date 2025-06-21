@@ -21,7 +21,6 @@ class HomeVC: SSDataLoadingVC, UISearchBarDelegate, UISearchResultsUpdating
     }
     
     var logoLauncher: SSLogoLauncher!
-    var player = AVPlayer()
     
     
     override func viewDidLoad()
