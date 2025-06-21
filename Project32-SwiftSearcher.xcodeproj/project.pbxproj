@@ -124,8 +124,8 @@
 		407B54322DEFCBEE00109BAE /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				407B54332DEFCBFB00109BAE /* PersistenceManager.swift */,
 				401A0A542DF347B900B02B6C /* NetworkManager.swift */,
+				407B54332DEFCBFB00109BAE /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
