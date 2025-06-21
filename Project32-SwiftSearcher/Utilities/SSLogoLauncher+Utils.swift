@@ -172,12 +172,10 @@ class SSLogoLauncher
     {
         targetVC.navigationController?.isNavigationBarHidden = false
         targetVC.view.backgroundColor = .systemBackground
-        // MAYBE LOOK INTO TINKERING W THE Z-AXIS VALUE FOR THINGS LIKE BROWSERS & SEARCHBARS CALLED EARLIER IN THE VDL
         
         PersistenceManager.isFirstVisitStatus = false
         removeAllAVPlayerLayers()
     
-        // KEEP ALL CONFIG CALLS IN THE VDL (IN ONE PLACE) IF POSSIBLE SO ITS NOT NEEDED IN HERE AND THE VDAppear
         targetVC.fetchProjects()
         targetVC.fetchFavorites()
     }
