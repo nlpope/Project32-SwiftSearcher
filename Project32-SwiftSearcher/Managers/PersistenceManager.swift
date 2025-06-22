@@ -66,9 +66,9 @@ enum PersistenceManager
     }
     
     
-    static func handle(_ action: PersistenceActionType, for project: SSProject, in projects: inout [SSProject], completed: @escaping (SSError?) -> Void)
+    static func handle(_ actionType: PersistenceActionType, for project: SSProject, in projects: inout [SSProject], completed: @escaping (SSError?) -> Void)
     {
-        switch action {
+        switch actionType {
         case .add:
 //            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
             projects.append(project)
