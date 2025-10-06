@@ -146,6 +146,7 @@
 				407B543F2DEFE55600109BAE /* Constants+Utils.swift */,
 				407B54412DEFE85300109BAE /* SSError+Utils.swift */,
 				407B544D2DF0099300109BAE /* SSLogoLauncher+Utils.swift */,
+				40EEEAE52DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -200,7 +201,6 @@
 				4095830F2DEFC3C70057A642 /* SceneDelegate.swift */,
 				407B54492DF001B200109BAE /* KeychainItemAccessibility.swift */,
 				407B544A2DF001B200109BAE /* KeychainWrapper.swift */,
-				40EEEAE52DFC52C400C6D611 /* SSTableViewDiffableDataSource.swift */,
 				4095830D2DEFC3C70057A642 /* Main.storyboard */,
 				40B94C962DF4ABE500C4DD6A /* LaunchScreen.storyboard */,
 				409583082DEFC3C70057A642 /* Assets.xcassets */,
