@@ -66,19 +66,6 @@ enum PersistenceManager
     }
     
     
-    static func handle(_ actionType: PersistenceActionType, for project: SSProject, in projects: inout [SSProject], completed: @escaping (SSError?) -> Void)
-    {
-        switch actionType {
-        case .add:
-//            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
-            projects.append(project)
-        /**--------------------------------------------------------------------------**/
-        case .remove:
-            projects.removeAll { $0.title == project.title }
-        }
-    }
-    
-    
     static func fetchFavorites(completed: @escaping (Result<[SSProject], SSError>) -> Void)
     {
         guard let favoritesData = defaults.object(forKey: SaveKeys.favorites) as? Data
@@ -90,6 +77,19 @@ enum PersistenceManager
             completed(.success(decodedFavorites))
         } catch {
             completed(.failure(.failedToFavorite))
+        }
+    }
+    
+    
+    static func handle(_ actionType: PersistenceActionType, for project: SSProject, in projects: inout [SSProject], completed: @escaping (SSError?) -> Void)
+    {
+        switch actionType {
+        case .add:
+//            guard !projects.contains(project) else { completed(.alreadyInFavorites); return }
+            projects.append(project)
+        /**--------------------------------------------------------------------------**/
+        case .remove:
+            projects.removeAll { $0.title == project.title }
         }
     }
     
